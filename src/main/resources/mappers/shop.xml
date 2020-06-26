@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mnd.gunreview.dao.ShopDAO">
+
+	<!-- 상업 시설 전체 조회 -->
+	<select id="selectShop" resultType="shop">
+		select id, phone, place_name, address_name, road_address_name,
+				lat, lng, category_group_code, category_group_name, place_url, discount
+		from Shop
+		order by id desc
+	</select>
+	
+	<!-- 상업 시설 상세 조회 -->
+	<select id="selectShopById" resultType="shop">
+		select id, phone, place_name, address_name, road_address_name,
+				lat, lng, category_group_code, category_group_name, place_url, discount
+		from Shop
+		where id = #{id}
+	</select>
+
+	<!-- 상업 시설 등록 -->
+	<insert id="insertShop" parameterType="shop">
+		insert into Shop(
+			id, phone, place_name, address_name, road_address_name,
+				lat, lng, category_group_code, category_group_name, place_url, discount
+		) values (
+			#{id}, #{phone}, #{place_name},#{address_name}, #{road_address_name}, 
+			#{lat}, #{lng}, #{category_group_code}, #{category_group_name},
+			#{place_url}, #{discount}
+		)
+	</insert>
+	
+	<!-- 상업 시설 수정 -->
+	<update id="updateShop" parameterType="shop">
+		update Shop
+		   set id = #{id}, 
+		   	   phone = #{phone}, 
+		   	   place_name = #{place_name},
+		   	   address_name = #{address_name},
+		   	   road_address_name = #{road_address_name},
+		   	   lat = #{lat},
+		   	   lng = #{lng},
+		   	   category_group_code = #{category_group_code},
+		   	   category_group_name = #{category_group_name},
+		   	   place_url = #{place_url},
+		   	   discount = #{discount}
+		 where id = #{id}
+	</update>
+
+	<!-- 상업 시설  삭제 -->
+	<delete id="deleteShop" parameterType="String">
+		delete 
+		  from Shop
+		 where id = #{id}
+	</delete>
+
+</mapper>
+
