@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mnd.gunreview.dao.UserDAO">
+
+	<!-- 회원 정보 전체 조회 -->
+	<select id="selectUser" resultType="user">
+		select userid, birth
+		from User
+		order by userid desc
+	</select>
+	
+	<!-- 회원 정보 상세 조회 -->
+	<select id="selectUserByUserid" resultType="user">
+		select userid, birth
+		from User
+		where userid = #{userid}
+	</select>
+
+	<!-- 회원 정보 등록 -->
+	<insert id="insertUser" parameterType="user">
+		insert into User(
+			userid, birth
+		) values (
+			#{userid}, #{birth}
+		)
+	</insert>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateUser" parameterType="user">
+		update User
+		   set userid = #{userid}, 
+		   	   birth = #{birth}
+		 where userid = #{userid}
+	</update>
+
+	<!-- 회원 정보 삭제 -->
+	<delete id="deleteUser" parameterType="String">
+		delete 
+		  from User
+		 where userid = #{userid}
+	</delete>
+
+</mapper>
+

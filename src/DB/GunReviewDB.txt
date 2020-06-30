@@ -1,0 +1,50 @@
+-- GunReview 스키마에 작업
+create database if not exists gunreview;
+use gunreview;
+
+-- 회원 테이블
+CREATE TABLE user (
+userid			varchar(50)	primary key,				-- 유저아이디
+birth			date,									-- 생년월일
+PRIMARY KEY (userid)
+);
+
+-- 관심지역 테이블
+CREATE TABLE userloc (
+userid			varchar(50) primary key,				-- 유저아이디
+address_name			varchar(100) NOT NULL,					-- 유저 관심지역 주소(지번)
+road_address_name		varchar(100) NOT NULL,					-- 유저 관심지역 주소(도로명)
+lat				varchar(30),							-- 관심지역 lat
+lng				varchar(30)								-- 관심지역 lng
+);
+
+-- 리뷰(식당) 테이블
+CREATE TABLE reviewShop(
+no				int primary key auto_increment,			-- 리뷰 번호
+review_content	varchar(4000),							-- 리뷰 내용
+review_datetime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 리뷰 작성일시
+review_img		varchar(50),							-- 리뷰 이미지
+review_rate		double,									-- 리뷰 평점
+review_userid	varchar(50) NOT NULL,					-- 리뷰 유저아이디
+review_nickname    varchar(50),							-- 리뷰 유저닉네임
+review_birth	date,									-- 리뷰 생년월일
+review_id		varchar(50) NOT NULL					-- 리뷰 식당id
+);
+
+-- 상업 시설 테이블
+CREATE TABLE Shop(
+id				varchar(50) primary key,				-- 시설 id
+phone			varchar(50),							-- 시설 연락처
+place_name		varchar(50),							-- 상호명
+address_name	varchar(100),							-- 지번 주소
+road_address_name	varchar(100),						-- 지번 주소
+lat				varchar(30),							-- 시설 lat(x)
+lng				varchar(30),							-- 시설 lng(y)
+category_group_code	varchar(30),						-- 카테고리코드
+category_group_name	varchar(30),						-- 카테고리이름
+place_url		varchar(50),							-- 정보 url
+discount 		varchar(30)								-- 할인률 정보
+);
+
+
+   
