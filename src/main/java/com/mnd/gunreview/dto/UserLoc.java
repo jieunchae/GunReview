@@ -1,12 +1,20 @@
 package com.mnd.gunreview.dto;
 
 public class UserLoc {
+	private int no;
 	private String userid;
 	private String address_name;
 	private String road_address_name;
 	private double lat;
 	private double lng;
 	
+	
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
 	public String getUserid() {
 		return userid;
 	}
@@ -37,8 +45,11 @@ public class UserLoc {
 	public void setLng(double lng) {
 		this.lng = lng;
 	}
-	public UserLoc(String userid, String address_name, String road_address_name, double lat, double lng) {
+	
+	
+	public UserLoc(int no, String userid, String address_name, String road_address_name, double lat, double lng) {
 		super();
+		this.no = no;
 		this.userid = userid;
 		this.address_name = address_name;
 		this.road_address_name = road_address_name;

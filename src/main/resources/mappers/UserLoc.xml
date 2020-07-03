@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mnd.gunreview.dao.UserLocDAO">
+
+	<!-- 회원 관심지역 정보 전체 조회 -->
+	<select id="selectUserLoc" resultType="UserLoc">
+		select no, userid, address_name, road_address_name, lat, lng 
+		from UserLoc
+		order by no desc
+	</select>
+	
+	<!-- 회원 관심지역 정보 상세 조회 -->
+	<select id="selectUserLocByUserid" resultType="UserLoc">
+		select no, userid, address_name, road_address_name, lat, lng 
+		from UserLoc
+		where userid = #{userid}
+	</select>
+
+	<!-- 회원 관심지역 정보 등록 -->
+	<insert id="insertUserLoc" parameterType="UserLoc">
+		insert into UserLoc(
+			userid, address_name, road_address_name, lat, lng
+		) values (
+			#{userid}, #{address_name},#{road_address_name},#{lat},#{lng}
+		)
+	</insert>
+	
+	<!-- 회원 관심지역 정보 수정 -->
+	<update id="updateUserLoc" parameterType="UserLoc">
+		update UserLoc
+		   set userid = #{userid}, 
+		   	   address_name = #{address_name},
+		   	   road_address_name = #{road_address_name},
+		   	   lat = #{lat},
+		   	   lng = #{lng}
+		 where no = #{no}
+	</update>
+
+	<!-- 회원 정보 삭제 -->
+	<delete id="deleteUserLoc" parameterType="int">
+		delete 
+		  from UserLoc
+		 where no = #{no}
+	</delete>
+
+</mapper>
+

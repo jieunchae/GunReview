@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mnd.gunreview.dao.ReviewShopDAO">
+
+	<!-- 식당 리뷰 전체 조회 -->
+	<select id="selectReviewShop" resultType="ReviewShop">
+		select no, review_content,review_datetime,review_img,
+		review_rate,review_userid,review_nickname,review_birth,shop_id
+		from ReviewShop
+		order by no desc
+	</select>
+	
+	<!-- 식당 리뷰 No 상세 조회 -->
+	<select id="selectReviewShopByNo" resultType="ReviewShop">
+		select no, review_content,review_datetime,review_img,
+		review_rate,review_userid,review_nickname,review_birth,shop_id
+		from ReviewShop
+		where no = #{no}
+	</select>
+
+	<!-- 식당 리뷰 등록 -->
+	<insert id="insertReviewShop" parameterType="ReviewShop">
+		insert into ReviewShop(
+			review_content,review_datetime,review_img,
+			review_rate,review_userid,review_nickname,review_birth,shop_id
+		) values (
+			#{review_content}, #{review_datetime},#{review_img}, #{review_rate}, 
+			#{review_userid}, #{review_nickname}, #{review_birth}, #{shop_id}
+		)
+	</insert>
+	
+	<!-- 식당 리뷰 수정 -->
+	<update id="updateReviewShop" parameterType="ReviewShop">
+		update ReviewShop
+		   set review_content = #{review_content}, 
+		   	   review_datetime = #{review_datetime},
+		   	   review_img = #{review_img},
+		   	   review_rate = #{review_rate},
+		   	   review_userid = #{review_userid},
+		   	   review_nickname = #{review_nickname},
+		   	   review_birth = #{review_birth},
+		   	   shop_id = #{shop_id}
+		 where no = #{no}
+	</update>
+
+	<!-- 식당 리뷰  삭제 -->
+	<delete id="deleteReviewShop" parameterType="int">
+		delete 
+		  from ReviewShop
+		 where no = #{no}
+	</delete>
+
+	<!-- 특정 식당 리뷰 전체 조회 -->
+	<select id="selectReviewShopById" resultType="ReviewShop">
+		select no, review_content,review_datetime,review_img,
+		review_rate,review_userid,review_nickname,review_birth,shop_id
+		from ReviewShop
+		 where shop_id = #{id}
+		order by no desc
+	</select>
+	
+</mapper>
+
