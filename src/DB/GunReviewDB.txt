@@ -6,13 +6,12 @@ use gunreview;
 CREATE TABLE User (
 userid			varchar(50)	primary key,				-- 유저아이디
 birth			date,									-- 생년월일
-PRIMARY KEY (userid)
 );
 
 -- 관심지역 테이블
 CREATE TABLE Userloc (
 no				int primary key auto_increment,			-- 관심지역 번호
-userid			varchar(50) primary key,				-- 유저아이디
+userid			varchar(50),							-- 유저아이디
 address_name			varchar(100) NOT NULL,					-- 유저 관심지역 주소(지번)
 road_address_name		varchar(100) NOT NULL,					-- 유저 관심지역 주소(도로명)
 lat				varchar(30),							-- 관심지역 lat
