@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mnd.gunreview.dao.ReviewPXDAO">
+
+	<!-- 해당 상품의 모든 리뷰 -->
+	<select id="selectReviewByProduct" resultType="ReviewPX">
+		select no, review_content, review_datetime, review_modifytime, review_img, review_rate, review_userid, review_nickname, review_birth, review_productname
+		from ReviewPX 
+		where review_productname = #{review_productname}
+	</select>
+	
+	<!-- 자신의 아이디로 쓴 리뷰 조회(전체 상품에 대해) -->
+	<select id="selectAllReviewByUserId" resultType="ReviewPX">
+		select no, review_content, review_datetime, review_modifytime, review_img, review_rate, review_userid, review_nickname, review_birth, review_productname
+		from ReviewPX
+		where review_userid = #{review_userid}
+	</select>
+
+	<!-- 자신의 아이디로 쓴 리뷰 조회(해당 상품에 대해) -->
+	<select id="selectReviewByUserId" resultType="ReviewPX">
+		select no, review_content, review_datetime, review_modifytime, review_img, review_rate, review_userid, review_nickname, review_birth, review_productname
+		from ReviewPX
+		where review_userid = #{review_userid} and review_productname= #{review_productname}
+	</select>
+	
+	<!-- 리뷰 작성 -->
+	<insert id="insertReview" parameterType="ReviewPX">
+		insert into reviewPX(review_content, review_datetime, review_img, review_rate,
+							 review_userid, review_nickname, review_birth, review_productname) 
+		values(#{review_content}, #{review_datetime}, #{review_img}, #{review_rate}, 
+							#{review_userid}, #{review_nickname}, #{review_birth}, #{review_productname})
+	</insert>
+	
+	<!-- 리뷰 수정 -->
+	<update id="updateReview" parameterType="ReviewPX">
+		update ReviewPX 
+		set review_content = #{review_content}, review_modifytime=current_timestamp(), review_img=#{review_img}, review_rate=#{review_rate}, review_nickname=#{review_nickname}
+		where no=#{no}
+	</update>
+	
+	<!-- 리뷰 삭제 -->
+	<delete id="deleteReview" parameterType="int">
+		delete from ReviewPX where no=#{no}
+	</delete>	
+</mapper>
+
