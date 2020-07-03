@@ -47,5 +47,26 @@ place_url		varchar(50),							-- 정보 url
 discount 		varchar(30)								-- 할인률 정보
 );
 
+-- PX 테이블
+create table PX(
+ no int primary key,	-- 제품 번호
+ year int,				-- 연도
+ month int,				-- 월
+ criteria varchar(30),	-- 선정 기준
+ name varchar(70)		-- 제품 이름
+);
 
+-- PX 리뷰 테이블
+create table ReviewPX(
+ no int primary key auto_increment,		-- 리뷰 번호
+ review_content	varchar(4000),			-- 리뷰 내용
+ review_datetime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,	-- 리뷰 작성일시
+ review_modifytime date,				-- 리뷰 수정일시(Null일 시, 수정 X)
+ review_img	varchar(50),				-- 리뷰 이미지
+ review_rate double,					-- 리뷰 평점
+ review_userid varchar(50) NOT NULL,	-- 리뷰 유저아이디
+ review_nickname varchar(50),			-- 리뷰 닉네임
+ review_birth	date,					-- 리보 생년월일
+ review_productname varchar(70) NOT NULL-- 리뷰 PX 제품 이름
+);
    
