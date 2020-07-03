@@ -1,49 +1,50 @@
--- GunReview ½ºÅ°¸¶¿¡ ÀÛ¾÷
+ï»¿-- GunReview ìŠ¤í‚¤ë§ˆì— ì‘ì—…
 create database if not exists gunreview;
 use gunreview;
 
--- È¸¿ø Å×ÀÌºí
-CREATE TABLE user (
-userid			varchar(50)	primary key,				-- À¯Àú¾ÆÀÌµğ
-birth			date,									-- »ı³â¿ùÀÏ
+-- íšŒì› í…Œì´ë¸”
+CREATE TABLE User (
+userid			varchar(50)	primary key,				-- ìœ ì €ì•„ì´ë””
+birth			date,									-- ìƒë…„ì›”ì¼
 PRIMARY KEY (userid)
 );
 
--- °ü½ÉÁö¿ª Å×ÀÌºí
-CREATE TABLE userloc (
-userid			varchar(50) primary key,				-- À¯Àú¾ÆÀÌµğ
-address_name			varchar(100) NOT NULL,					-- À¯Àú °ü½ÉÁö¿ª ÁÖ¼Ò(Áö¹ø)
-road_address_name		varchar(100) NOT NULL,					-- À¯Àú °ü½ÉÁö¿ª ÁÖ¼Ò(µµ·Î¸í)
-lat				varchar(30),							-- °ü½ÉÁö¿ª lat
-lng				varchar(30)								-- °ü½ÉÁö¿ª lng
+-- ê´€ì‹¬ì§€ì—­ í…Œì´ë¸”
+CREATE TABLE Userloc (
+no				int primary key auto_increment,			-- ê´€ì‹¬ì§€ì—­ ë²ˆí˜¸
+userid			varchar(50) primary key,				-- ìœ ì €ì•„ì´ë””
+address_name			varchar(100) NOT NULL,					-- ìœ ì € ê´€ì‹¬ì§€ì—­ ì£¼ì†Œ(ì§€ë²ˆ)
+road_address_name		varchar(100) NOT NULL,					-- ìœ ì € ê´€ì‹¬ì§€ì—­ ì£¼ì†Œ(ë„ë¡œëª…)
+lat				varchar(30),							-- ê´€ì‹¬ì§€ì—­ lat
+lng				varchar(30)								-- ê´€ì‹¬ì§€ì—­ lng
 );
 
--- ¸®ºä(½Ä´ç) Å×ÀÌºí
-CREATE TABLE reviewShop(
-no				int primary key auto_increment,			-- ¸®ºä ¹øÈ£
-review_content	varchar(4000),							-- ¸®ºä ³»¿ë
-review_datetime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, -- ¸®ºä ÀÛ¼ºÀÏ½Ã
-review_img		varchar(50),							-- ¸®ºä ÀÌ¹ÌÁö
-review_rate		double,									-- ¸®ºä ÆòÁ¡
-review_userid	varchar(50) NOT NULL,					-- ¸®ºä À¯Àú¾ÆÀÌµğ
-review_nickname    varchar(50),							-- ¸®ºä À¯Àú´Ğ³×ÀÓ
-review_birth	date,									-- ¸®ºä »ı³â¿ùÀÏ
-review_id		varchar(50) NOT NULL					-- ¸®ºä ½Ä´çid
+-- ë¦¬ë·°(ì‹ë‹¹) í…Œì´ë¸”
+CREATE TABLE ReviewShop(
+no				int primary key auto_increment,			-- ë¦¬ë·° ë²ˆí˜¸
+review_content	varchar(4000),							-- ë¦¬ë·° ë‚´ìš©
+review_datetime timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, -- ë¦¬ë·° ì‘ì„±ì¼ì‹œ
+review_img		varchar(50),							-- ë¦¬ë·° ì´ë¯¸ì§€
+review_rate		double,									-- ë¦¬ë·° í‰ì 
+review_userid	varchar(50) NOT NULL,					-- ë¦¬ë·° ìœ ì €ì•„ì´ë””
+review_nickname    varchar(50),							-- ë¦¬ë·° ìœ ì €ë‹‰ë„¤ì„
+review_birth	date,									-- ë¦¬ë·° ìƒë…„ì›”ì¼
+shop_id		varchar(50) NOT NULL					-- ë¦¬ë·° ì‹ë‹¹id
 );
 
--- »ó¾÷ ½Ã¼³ Å×ÀÌºí
+-- ìƒì—… ì‹œì„¤ í…Œì´ë¸”
 CREATE TABLE Shop(
-id				varchar(50) primary key,				-- ½Ã¼³ id
-phone			varchar(50),							-- ½Ã¼³ ¿¬¶ôÃ³
-place_name		varchar(50),							-- »óÈ£¸í
-address_name	varchar(100),							-- Áö¹ø ÁÖ¼Ò
-road_address_name	varchar(100),						-- Áö¹ø ÁÖ¼Ò
-lat				varchar(30),							-- ½Ã¼³ lat(x)
-lng				varchar(30),							-- ½Ã¼³ lng(y)
-category_group_code	varchar(30),						-- Ä«Å×°í¸®ÄÚµå
-category_group_name	varchar(30),						-- Ä«Å×°í¸®ÀÌ¸§
-place_url		varchar(50),							-- Á¤º¸ url
-discount 		varchar(30)								-- ÇÒÀÎ·ü Á¤º¸
+id				varchar(50) primary key,				-- ì‹œì„¤ id
+phone			varchar(50),							-- ì‹œì„¤ ì—°ë½ì²˜
+place_name		varchar(50),							-- ìƒí˜¸ëª…
+address_name	varchar(100),							-- ì§€ë²ˆ ì£¼ì†Œ
+road_address_name	varchar(100),						-- ì§€ë²ˆ ì£¼ì†Œ
+lat				varchar(30),							-- ì‹œì„¤ lat(x)
+lng				varchar(30),							-- ì‹œì„¤ lng(y)
+category_group_code	varchar(30),						-- ì¹´í…Œê³ ë¦¬ì½”ë“œ
+category_group_name	varchar(30),						-- ì¹´í…Œê³ ë¦¬ì´ë¦„
+place_url		varchar(50),							-- ì •ë³´ url
+discount 		varchar(30)								-- í• ì¸ë¥  ì •ë³´
 );
 
 
