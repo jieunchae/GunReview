@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mnd.gunreview.dao.ReviewWelfareDAO">
+
+	<!-- 복지시설 리뷰 전체 조회 -->
+	<select id="selectReviewWelfare" resultType="ReviewWelfare">
+		select no, review_content,review_datetime,review_img,
+		review_rate,review_userid,review_nickname,review_birth,welfare_id
+		from ReviewWelfare
+		order by no desc
+	</select>
+	
+	<!-- 복지시설 리뷰 No 상세 조회 -->
+	<select id="selectReviewWelfareByNo" resultType="ReviewWelfare">
+		select no, review_content,review_datetime,review_img,
+		review_rate,review_userid,review_nickname,review_birth,welfare_id
+		from ReviewWelfare
+		where no = #{no}
+	</select>
+
+	<!-- 복지시설 리뷰 등록 -->
+	<insert id="insertReviewWelfare" parameterType="ReviewWelfare">
+		insert into ReviewWelfare(
+			review_content,review_datetime,review_img,
+			review_rate,review_userid,review_nickname,review_birth,welfare_id
+		) values (
+			#{review_content}, #{review_datetime},#{review_img}, #{review_rate}, 
+			#{review_userid}, #{review_nickname}, #{review_birth}, #{welfare_id}
+		)
+	</insert>
+	
+	<!-- 복지시설 리뷰 수정 -->
+	<update id="updateReviewWelfare" parameterType="ReviewWelfare">
+		update ReviewWelfare
+		   set review_content = #{review_content}, 
+		   	   review_datetime = #{review_datetime},
+		   	   review_img = #{review_img},
+		   	   review_rate = #{review_rate},
+		   	   review_userid = #{review_userid},
+		   	   review_nickname = #{review_nickname},
+		   	   review_birth = #{review_birth},
+		   	   welfare_id = #{welfare_id}
+		 where no = #{no}
+	</update>
+
+	<!-- 복지시설 리뷰  삭제 -->
+	<delete id="deleteReviewWelfare" parameterType="int">
+		delete 
+		  from ReviewWelfare
+		 where no = #{no}
+	</delete>
+
+	<!-- 특정 복지시설 리뷰 전체 조회 -->
+	<select id="selectReviewWelfareById" resultType="ReviewWelfare">
+		select no, review_content,review_datetime,review_img,
+		review_rate,review_userid,review_nickname,review_birth,welfare_id
+		from ReviewWelfare
+		 where welfare_id = #{id}
+		order by no desc
+	</select>
+	
+</mapper>
+
