@@ -48,6 +48,14 @@ public class ReviewShopController {
 		logger.debug("selectReviewShopByNo - 호출");
 		return new ResponseEntity<ReviewShop>(reviewShopService.selectReviewShopByNo(no), HttpStatus.OK);
 	}
+  
+  @ApiOperation(value = "page에 해당하는 리뷰 리스트를 반환한다.", response = List.class)    
+	@GetMapping("page/{page}")
+	public ResponseEntity<List<ReviewShop>> selectReviewShopByPage(@PathVariable int page) {
+		logger.debug("selectReviewShopByPage - 호출");
+		return new ResponseEntity<List<ReviewShop>>(reviewShopService.selectReviewShopByPage(page), HttpStatus.OK);
+	}
+
 
   @ApiOperation(value = "새로운 리뷰를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
@@ -58,7 +66,7 @@ public class ReviewShopController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
-
+  
   @ApiOperation(value = "No에 해당하는 리뷰의 정보를 수정한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping("{no}")
 	public ResponseEntity<String> updateReviewShop(@RequestBody ReviewShop review) {
@@ -86,5 +94,12 @@ public class ReviewShopController {
 	public ResponseEntity<List<ReviewShop>> selectReviewShopById(@PathVariable String id) {
 		logger.debug("selectReviewShopById - 호출");
 		return new ResponseEntity<List<ReviewShop>>(reviewShopService.selectReviewShopById(id), HttpStatus.OK);
+	}
+  
+  @ApiOperation(value = "식당 id에 해당하는 모든리뷰를 페이지별로반환한다.", response = ReviewShop.class)    
+	@GetMapping("{id}/{page}")
+	public ResponseEntity<List<ReviewShop>> selectReviewShopByIdPage(@PathVariable String id,int page) {
+		logger.debug("selectReviewShopByIdPage - 호출");
+		return new ResponseEntity<List<ReviewShop>>(reviewShopService.selectReviewShopByIdPage(id, page), HttpStatus.OK);
 	}
 }

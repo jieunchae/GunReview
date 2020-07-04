@@ -11,4 +11,6 @@ public interface ReviewShopService {
 	public int updateReviewShop(ReviewShop review);
 	public int deleteReviewShop(int no);
 	public List<ReviewShop> selectReviewShopById(String id);
+	public List<ReviewShop> selectReviewShopByPage(int page);
+	public List<ReviewShop> selectReviewShopByIdPage(String id,int page);
 }

@@ -61,5 +61,23 @@
 		order by no desc
 	</select>
 	
+	<!-- 페이지별 식당 리뷰 조회 -->
+	<select id="selectReviewShopByPage" resultType="ReviewShop">
+		select no, review_content,review_datetime,review_img,
+		review_rate,review_userid,review_nickname,review_birth,shop_id
+		from ReviewShop
+		order by no
+		limit #{page}, 10
+	</select>
+	
+	<!-- 페이지별 식당 id에 의한 리뷰 조회 -->
+	<select id="selectReviewShopByIdPage" resultType="ReviewShop">
+		select no, review_content,review_datetime,review_img,
+		review_rate,review_userid,review_nickname,review_birth,shop_id
+		from ReviewShop
+		where shop_id = #{id}
+		order by no
+		limit #{page}, 10
+	</select>
 </mapper>
 
