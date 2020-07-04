@@ -1,5 +1,6 @@
 package com.mnd.gunreview.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mnd.gunreview.dto.PX;
+import com.mnd.gunreview.dto.ReviewPX;
 import com.mnd.gunreview.service.PXService;
 
 import io.swagger.annotations.ApiOperation;

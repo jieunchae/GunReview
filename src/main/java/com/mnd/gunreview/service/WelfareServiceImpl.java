@@ -3,10 +3,11 @@ package com.mnd.gunreview.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mnd.gunreview.dao.WelfareDAO;
 import com.mnd.gunreview.dto.Welfare;
-
+@Service
 public class WelfareServiceImpl implements WelfareService {
 
 	@Autowired
