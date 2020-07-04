@@ -38,7 +38,7 @@ public class ShopController {
   @ApiOperation(value = "모든 상업시설의 정보를 반환한다.", response = List.class)
 	@GetMapping
 	public ResponseEntity<List<Shop>> retrieveShop() throws Exception {
-		logger.debug("retrieveBoard - 호출");
+		logger.debug("retrieveShop - 호출");
 		return new ResponseEntity<List<Shop>>(shopService.selectShop(), HttpStatus.OK);
 	}
 
@@ -52,17 +52,17 @@ public class ShopController {
   @ApiOperation(value = "새로운 장소 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
 	public ResponseEntity<String> writeShop(@RequestBody Shop shop) {
-		logger.debug("writeBoard - 호출");
+		logger.debug("writeShop - 호출");
 		if (shopService.insertShop(shop) == 1) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
-  @ApiOperation(value = "글번호에 해당하는 게시글의 정보를 수정한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+  @ApiOperation(value = "id에 해당하는 장소의 정보를 수정한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping("{id}")
 	public ResponseEntity<String> updateShop(@RequestBody Shop shop) {
-		logger.debug("updateBoard - 호출");
+		logger.debug("updateShop - 호출");
 		logger.debug("" + shop);
 		
 		if (shopService.updateShop(shop) == 1) {
@@ -71,10 +71,10 @@ public class ShopController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
-  @ApiOperation(value = "글번호에 해당하는 장소의 정보를 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+  @ApiOperation(value = "id에 해당하는 장소의 정보를 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@DeleteMapping("{id}")
-	public ResponseEntity<String> deleteBoard(@PathVariable String id) {
-		logger.debug("deleteBoard - 호출");
+	public ResponseEntity<String> deleteShop(@PathVariable String id) {
+		logger.debug("deleteShop - 호출");
 		if (shopService.deleteShop(id) == 1) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}

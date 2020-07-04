@@ -81,7 +81,7 @@ public class ReviewWelfareController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
   
-  @ApiOperation(value = "식당 id에 해당하는 모든리뷰를 반환한다.", response = ReviewWelfare.class)    
+  @ApiOperation(value = "복지시설 id에 해당하는 모든리뷰를 반환한다.", response = ReviewWelfare.class)    
 	@GetMapping("{id}")
 	public ResponseEntity<List<ReviewWelfare>> selectReviewShopById(@PathVariable String id) {
 		logger.debug("selectReviewShopById - 호출");
