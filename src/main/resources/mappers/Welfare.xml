@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mnd.gunreview.dao.ShopDAO">
+
+	<!-- 복지 시설 전체 조회 -->
+	<select id="selectWelfare" resultType="Welfare">
+		select 	id, region, place_name, event_name, start_date, finish_date, phone,
+				place_url, detail, address_name, road_address_name, lat, lng
+		from Welfare
+		order by id desc
+	</select>
+	
+	<!-- 복지 시설 상세 조회 -->
+	<select id="selectWelfareById" resultType="Welfare">
+		select 	id, region, place_name, event_name, start_date, finish_date, phone,
+				place_url, detail, address_name, road_address_name, lat, lng
+		from Welfare
+		where id = #{id}
+	</select>
+
+	<!-- 복지 시설 등록 -->
+	<insert id="insertWelfare" parameterType="Welfare">
+		insert into Welfare(
+			id, region, place_name, event_name, start_date, finish_date, phone,
+				place_url, detail, address_name, road_address_name, lat, lng
+		) values (
+			#{id}, #{region}, #{place_name}, #{event_name}, #{start_date}, #{finish_date},
+			#{phone}, #{place_url}, #{detail}, #{address_name}, #{road_address_name},
+			#{lat}, #{lng}
+		)
+	</insert>
+	
+	<!-- 복지 시설 수정 -->
+	<update id="updateWelfare" parameterType="Welfare">
+		update	Welfare
+		   set	id = #{id},
+		   		region = #{region},
+		   		place_name = #{place_name},
+		   		event_name = #{event_name},
+		   		start_date = #{start_date},
+		   		finish_date = #{finish_date},
+		   		phone = #{phone},
+		   		place_url = #{place_url},
+		   		detail = #{detail},
+		   		address_name = #{address_name},
+		   		road_address_name = #{road_address_name},
+		   		lat = #{lat},
+		   		lng = #{lng} 
+		 where	id = #{id}
+	</update>
+
+	<!-- 복지 시설  삭제 -->
+	<delete id="deleteWelfare" parameterType="String">
+		 delete 
+		 from Welfare
+		 where id = #{id}
+	</delete>
+
+</mapper>
+

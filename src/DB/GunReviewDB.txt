@@ -68,4 +68,33 @@ create table ReviewPX(
  review_birth	date,					-- 리보 생년월일
  review_productname varchar(70) NOT NULL-- 리뷰 PX 제품 이름
 );
-   
+  
+  -- 복지 시설 리뷰
+CREATE TABLE ReviewWelfare (
+	no              INT			primary key auto_increment,				-- 리뷰 번호
+	review_content  VARCHAR(4000),		 								-- 리뷰 내용
+	review_datetime TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP, 	-- 리뷰 작성일시
+	review_img      VARCHAR(50),		 								-- 리뷰 이미지
+	review_rate     DOUBLE,			 									-- 리뷰 평점
+	review_userid   VARCHAR(50)	NOT NULL,								-- 리뷰 유저아이디
+	review_nickname VARCHAR(50),		 								-- 리뷰 유저닉네임
+	review_birth    DATE,			 									-- 리뷰 생년원일
+	welfare_id      VARCHAR(50)	NOT NULL	  							-- 리뷰 복지시설id
+);
+
+-- 복지 시설 테이블
+CREATE TABLE Welfare (
+	id                varchar(50)	NOT NULL,	-- 복지시설 번호
+	region            VARCHAR(100),				-- 복지시설 지역
+	place_name        VARCHAR(50),				-- 복지시설명
+	event_name        VARCHAR(50), 				-- 할인행사명
+	start_date        DATE, 					-- 시작일
+	finish_date       DATE, 					-- 종료일
+	phone             VARCHAR(50), 				-- 연락처
+	place_url         VARCHAR(50), 				-- 홈페이지
+	detail            VARCHAR(1000), 			-- 상세설명
+	address_name      VARCHAR(100),				-- 지번 주소
+	road_address_name VARCHAR(100),				-- 도로명 주소
+	lat               VARCHAR(30),				-- 시설 lat(x)
+	lng               VARCHAR(30) 				-- 시설 lng(y)
+);
