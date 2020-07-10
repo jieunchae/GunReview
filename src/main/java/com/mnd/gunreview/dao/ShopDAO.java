@@ -14,4 +14,5 @@ public interface ShopDAO {
 	public int updateShop(Shop shop);
 	public int deleteShop(String id);
 	public List<Shop> selectShopByLoc(double lat, double lng);
+	public int updateShopRate(String id);
 }

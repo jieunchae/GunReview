@@ -30,8 +30,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mnd.gunreview.dao.ShopDAO;
 import com.mnd.gunreview.dto.ReviewShop;
+import com.mnd.gunreview.dto.Shop;
 import com.mnd.gunreview.service.ReviewShopService;
+import com.mnd.gunreview.service.ShopService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -47,6 +50,7 @@ public class ReviewShopController {
 	
 	@Autowired
 	private ReviewShopService reviewShopService;
+	private ShopService shopService;
 	
 	@ApiOperation(value = "모든 리뷰를 반환한다.", response = List.class)
 	@GetMapping
@@ -75,6 +79,7 @@ public class ReviewShopController {
 	public ResponseEntity<String> insertReviewShop(@RequestBody ReviewShop review) {
 		logger.debug("insertReviewShop - 호출");
 		if (reviewShopService.insertReviewShop(review) == 1) {
+			shopService.updateShopRate(review.getShop_id());
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
@@ -124,6 +129,7 @@ public class ReviewShopController {
 		logger.debug("" + review);
 		
 		if (reviewShopService.updateReviewShop(review) == 1) {
+			shopService.updateShopRate(review.getShop_id());
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
@@ -134,6 +140,7 @@ public class ReviewShopController {
 	public ResponseEntity<String> deleteReviewShop(@PathVariable int no) {
 		logger.debug("deleteReviewShop - 호출");
 		if (reviewShopService.deleteReviewShop(no) == 1) {
+			shopService.updateShopRate(reviewShopService.selectReviewShopByNo(no).getShop_id());
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);

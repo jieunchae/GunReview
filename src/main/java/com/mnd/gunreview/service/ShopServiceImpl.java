@@ -43,4 +43,9 @@ public class ShopServiceImpl implements ShopService{
 	public List<Shop> selectShopByLoc(double lat, double lng) {
 		return shopDao.selectShopByLoc(lat,lng);
 	}
+
+	@Override
+	public int updateShopRate(String id) {
+		return shopDao.updateShopRate(id);
+	}
 }
