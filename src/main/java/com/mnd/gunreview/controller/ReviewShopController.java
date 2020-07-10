@@ -86,7 +86,7 @@ public class ReviewShopController {
 		try {
 	  		//웹서비스 경로 지정
 			String root_path = request.getSession().getServletContext().getRealPath("\\");
-			String attach_path = "\\resources\\upload\\";
+			String attach_path = "resources\\upload\\";
 			String filename = uploadfile.getOriginalFilename();
 			
 			//System.out.println(root_path+attach_path+filename);
