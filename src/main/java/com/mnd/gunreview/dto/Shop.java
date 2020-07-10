@@ -1,7 +1,5 @@
 package com.mnd.gunreview.dto;
 
-import java.util.Date;
-
 public class Shop {
 	private String id;
 	private String phone;
@@ -15,7 +13,7 @@ public class Shop {
 	private String place_url;
 	private String discount;
 	private int review_num;
-	private double avg_rate;
+	private int sum_rate;
 	
 	public String getId() {
 		return id;
@@ -113,17 +111,18 @@ public class Shop {
 		this.review_num = review_num;
 	}
 
-	public double getAvg_rate() {
-		return avg_rate;
+
+	public int getSum_rate() {
+		return sum_rate;
 	}
 
-	public void setAvg_rate(double avg_rate) {
-		this.avg_rate = avg_rate;
+	public void setSum_rate(int sum_rate) {
+		this.sum_rate = sum_rate;
 	}
 
 	public Shop(String id, String phone, String place_name, String address_name, String road_address_name, String lat,
 			String lng, String category_group_code, String category_group_name, String place_url, String discount,
-			int review_num, double avg_rate) {
+			int review_num, int sum_rate) {
 		super();
 		this.id = id;
 		this.phone = phone;
@@ -137,7 +136,7 @@ public class Shop {
 		this.place_url = place_url;
 		this.discount = discount;
 		this.review_num = review_num;
-		this.avg_rate = avg_rate;
+		this.sum_rate = sum_rate;
 	}
 
 	public Shop() {
