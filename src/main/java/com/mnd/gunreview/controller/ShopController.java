@@ -48,7 +48,13 @@ public class ShopController {
 		logger.debug("detailShop - 호출");
 		return new ResponseEntity<Shop>(shopService.selectShopById(id), HttpStatus.OK);
 	}
-
+  @ApiOperation(value = "중심 좌표 기준 3km내의 모든 상업시설을 반환한다.", response = Shop.class)    
+ 	@GetMapping("loc/{lat}/{lng}")
+ 	public ResponseEntity<List<Shop>> retrieveShopByLoc(@PathVariable double lat,double lng) {
+ 		logger.debug("retrieveShopByLoc - 호출");
+ 		return new ResponseEntity<List<Shop>>(shopService.selectShopByLoc(lat,lng), HttpStatus.OK);
+ 	}
+  
   @ApiOperation(value = "새로운 장소 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
 	public ResponseEntity<String> writeShop(@RequestBody Shop shop) {

@@ -7,7 +7,7 @@
 	<!-- 상업 시설 전체 조회 -->
 	<select id="selectShop" resultType="shop">
 		select id, phone, place_name, address_name, road_address_name,
-				lat, lng, category_group_code, category_group_name, place_url, discount
+				lat, lng, category_group_code, category_group_name, place_url, discount, review_num, avg_rate
 		from Shop
 		order by id desc
 	</select>
@@ -15,7 +15,7 @@
 	<!-- 상업 시설 상세 조회 -->
 	<select id="selectShopById" resultType="shop">
 		select id, phone, place_name, address_name, road_address_name,
-				lat, lng, category_group_code, category_group_name, place_url, discount
+				lat, lng, category_group_code, category_group_name, place_url, discount, review_num, avg_rate
 		from Shop
 		where id = #{id}
 	</select>
@@ -24,11 +24,11 @@
 	<insert id="insertShop" parameterType="shop">
 		insert into Shop(
 			id, phone, place_name, address_name, road_address_name,
-				lat, lng, category_group_code, category_group_name, place_url, discount
+				lat, lng, category_group_code, category_group_name, place_url, discount, review_num, avg_rate
 		) values (
 			#{id}, #{phone}, #{place_name},#{address_name}, #{road_address_name}, 
 			#{lat}, #{lng}, #{category_group_code}, #{category_group_name},
-			#{place_url}, #{discount}
+			#{place_url}, #{discount}, #{review_num}, #{avg_rate}
 		)
 	</insert>
 	
@@ -45,7 +45,9 @@
 		   	   category_group_code = #{category_group_code},
 		   	   category_group_name = #{category_group_name},
 		   	   place_url = #{place_url},
-		   	   discount = #{discount}
+		   	   discount = #{discount},
+		   	   review_num = #{review_num},
+		   	   avg_rate = #{avg_rate}
 		 where id = #{id}
 	</update>
 
@@ -55,6 +57,14 @@
 		  from Shop
 		 where id = #{id}
 	</delete>
-
+	
+	<select id="selectShopByLoc" resultType="shop">
+		select id, phone, place_name, address_name, road_address_name,
+				lat, lng, category_group_code, category_group_name, place_url, discount, review_num, avg_rate
+		from Shop
+		<![CDATA[where (ACOS( COS( RADIANS( 90-CAST(lat as DECIMAL(16,13)) )) * COS( RADIANS( 90-#{lat} )) + SIN( RADIANS( 90-CAST(lat as DECIMAL(16,13)) )) * SIN( RADIANS( 90-#{lat} )) * COS( RADIANS( lng-#{lng} ))) * 6378.137) <= 3]]>
+		order by avg_rate desc
+	</select>
+	
 </mapper>
 

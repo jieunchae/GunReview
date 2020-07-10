@@ -38,4 +38,9 @@ public class ShopServiceImpl implements ShopService{
 	public int deleteShop(String id) {
 		return shopDao.deleteShop(id);
 	}
+
+	@Override
+	public List<Shop> selectShopByLoc(double lat, double lng) {
+		return shopDao.selectShopByLoc(lat,lng);
+	}
 }
