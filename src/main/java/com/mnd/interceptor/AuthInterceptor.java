@@ -12,20 +12,26 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mnd.gunreview.dto.User;
+import com.mnd.gunreview.service.UserService;
+import com.mnd.gunreview.service.UserServiceImpl;
 
 
 //인증을 위한 인터셉터
 @Component
 public class AuthInterceptor extends HandlerInterceptorAdapter{
 
+	private UserService userService = new UserServiceImpl();
+	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Override
@@ -49,14 +55,21 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			//형식에러
 		}else {
 			//2. 토큰으로 가져온 userId가 DB에 있는지 확인
+			User user = new User();
+			try {
+				user = userService.selectUserById(id);
+			}catch(NullPointerException e) {
+				//3.없으면 insert
+				user = getUserInfo(token); //user 정보 받아오기
+				System.out.println(user.toString());
+				if(user != null)
+					userService.insertUser(user);
+			}
 			
-			//3.없으면 insert
-			getUserInfo(token);
+			//4. 있다면 user정보 넘겨줌
+			//그 결과를 request attribute로 넘겨준다
+			request.setAttribute("user",user);
 		}
-		
-		//4. 있다면 user정보 넘겨줌
-		//그 결과를 request attribute로 넘겨준다
-		//request.setAttribute("user", user);
 		return super.preHandle(request, response, handler);
 	}
 
@@ -115,7 +128,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		return id;
 	}
 	
-	public void getUserInfo(String access_token) {
+	public User getUserInfo(String access_token) {
+		User user = new User();
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		
 		try {
@@ -143,22 +157,43 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
 			
+			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+			JsonObject kakao_account = element.getAsJsonObject().getAsJsonObject("kakao_account").getAsJsonObject();
+			
+			
 			String id = element.getAsJsonObject().get("id").getAsString();
-			//String email = element.getAsJsonObject().get("email").getAsString();
-			//String age_range = element.getAsJsonObject().get("age_range").getAsString();
-			String birthday = element.getAsJsonObject().get("birthday").getAsString();
-			//String gender = element.getAsJsonObject().get("gender").getAsString();
-				
+			user.setId(id);
+			String email = kakao_account.getAsJsonObject().get("email").getAsString();
+			user.setEmail(email);
+			
+			try {
+				String age_range = kakao_account.getAsJsonObject().get("age_range").getAsString();
+				user.setAge_range(age_range);
+			}catch(NullPointerException e) {
+				user.setAge_range("");
+			}
+			
+			try {
+				String birthday = kakao_account.getAsJsonObject().get("birthday").getAsString();
+				user.setBirthday(birthday);
+			}catch(NullPointerException e) {
+				user.setBirthday("");
+			}
+			
+			String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+			user.setGender(gender);
+			
 			//확인
 			System.out.println("id : " + id);
-			//System.out.println("email : " + email);
+			System.out.println("email : " + email);
 			//System.out.println("age_range : " + age_range);
-			System.out.println("birthday : " + birthday);
-			//System.out.println("gender : " + gender);
+			//System.out.println("birthday : " + birthday);
+			System.out.println("gender : " + gender);
 				
 			br.close();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+		return user;
 	}
 }

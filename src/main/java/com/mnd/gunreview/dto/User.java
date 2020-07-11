@@ -46,8 +46,12 @@ public class User {
 		this.gender = gender;
 	}
 	public User() {
-		super();
 		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", age_range=" + age_range + ", birthday=" + birthday
+				+ ", gender=" + gender + "]";
 	}
 	
 
