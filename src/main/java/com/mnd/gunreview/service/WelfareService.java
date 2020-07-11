@@ -10,4 +10,5 @@ public interface WelfareService {
 	public int insertWelfare(Welfare welfare);
 	public int updateWelfare(Welfare welfare);
 	public int deleteWelfare(String id);
+	public int updateWelfareRate(String id);
 }

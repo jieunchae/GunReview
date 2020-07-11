@@ -52,6 +52,7 @@ public class ReviewShopController {
 	
 	@Autowired
 	private ReviewShopService reviewShopService;
+	@Autowired
 	private ShopService shopService;
 	
 	@ApiOperation(value = "모든 리뷰를 반환한다.", response = List.class)

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mnd.gunreview.dto.ReviewWelfare;
 import com.mnd.gunreview.service.ReviewWelfareService;
+import com.mnd.gunreview.service.WelfareService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -34,6 +35,8 @@ public class ReviewWelfareController {
 	
 	@Autowired
 	private ReviewWelfareService reviewWelfareService;
+	@Autowired
+	private WelfareService welfareService;
 	
 	@ApiOperation(value = "모든 리뷰를 반환한다.", response = List.class)
 	@GetMapping
@@ -54,6 +57,7 @@ public class ReviewWelfareController {
 	public ResponseEntity<String> insertReviewWelfare(@RequestBody ReviewWelfare review) {
 		logger.debug("insertReviewWelfare - 호출");
 		if (reviewWelfareService.insertReviewWelfare(review) == 1) {
+			welfareService.updateWelfareRate(review.getWelfare_id());
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
@@ -66,6 +70,7 @@ public class ReviewWelfareController {
 		logger.debug("" + review);
 		
 		if (reviewWelfareService.updateReviewWelfare(review) == 1) {
+			welfareService.updateWelfareRate(review.getWelfare_id());
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
@@ -76,6 +81,7 @@ public class ReviewWelfareController {
 	public ResponseEntity<String> deleteReviewWelfare(@PathVariable int no) {
 		logger.debug("deleteReviewWelfare - 호출");
 		if (reviewWelfareService.deleteReviewWelfare(no) == 1) {
+			welfareService.updateWelfareRate(reviewWelfareService.selectReviewWelfareByNo(no).getWelfare_id());
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);

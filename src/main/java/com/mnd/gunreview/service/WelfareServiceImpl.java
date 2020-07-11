@@ -32,5 +32,9 @@ public class WelfareServiceImpl implements WelfareService {
 	public int deleteWelfare(String id) {
 		return welfareDao.deleteWelfare(id);
 	}
+	@Override
+	public int updateWelfareRate(String id) {
+		return welfareDao.updateWelfareRate(id);
+	}
 
 }

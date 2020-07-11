@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Welfare {
 	private String id;
-	private String region;
+	private String kind;
 	private String place_name;
 	private String event_name;
 	private Date start_date;
@@ -16,6 +16,8 @@ public class Welfare {
 	private String road_address_name;
 	private String lat;
 	private String lng;
+	private int review_num;
+	private int sum_rate;
 	
 	public String getId() {
 		return id;
@@ -23,11 +25,11 @@ public class Welfare {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getRegion() {
-		return region;
+	public String getKind() {
+		return kind;
 	}
-	public void setRegion(String region) {
-		this.region = region;
+	public void setKind(String kind) {
+		this.kind = kind;
 	}
 	public String getPlace_name() {
 		return place_name;
@@ -95,12 +97,26 @@ public class Welfare {
 	public void setLng(String lng) {
 		this.lng = lng;
 	}
-	public Welfare(String id, String region, String place_name, String event_name, Date start_date, Date finish_date,
+	
+	public int getReview_num() {
+		return review_num;
+	}
+	public void setReview_num(int review_num) {
+		this.review_num = review_num;
+	}
+	public int getSum_rate() {
+		return sum_rate;
+	}
+	public void setSum_rate(int sum_rate) {
+		this.sum_rate = sum_rate;
+	}
+	
+	public Welfare(String id, String kind, String place_name, String event_name, Date start_date, Date finish_date,
 			String phone, String place_url, String detail, String address_name, String road_address_name, String lat,
-			String lng) {
+			String lng, int review_num, int sum_rate) {
 		super();
 		this.id = id;
-		this.region = region;
+		this.kind = kind;
 		this.place_name = place_name;
 		this.event_name = event_name;
 		this.start_date = start_date;
@@ -112,12 +128,8 @@ public class Welfare {
 		this.road_address_name = road_address_name;
 		this.lat = lat;
 		this.lng = lng;
-	}
-	public String toString() {
-		return "Welfare [id=" + id + ", region=" + region + ", place_name=" + place_name + ", event_name=" + event_name
-				+ ", start_date=" + start_date + ", finish_date=" + finish_date + ", phone=" + phone + ", place_url="
-				+ place_url + ", detail=" + detail + ", address_name=" + address_name + ", road_address_name="
-				+ road_address_name + ", lat=" + lat + ", lng=" + lng + "]";
+		this.review_num = review_num;
+		this.sum_rate = sum_rate;
 	}
 	public Welfare() {
 		super();

@@ -6,16 +6,16 @@
 
 	<!-- 복지 시설 전체 조회 -->
 	<select id="selectWelfare" resultType="Welfare">
-		select 	id, region, place_name, event_name, start_date, finish_date, phone,
-				place_url, detail, address_name, road_address_name, lat, lng
+		select 	id, kind, place_name, event_name, start_date, finish_date, phone,
+				place_url, detail, address_name, road_address_name, lat, lng,review_num,sum_rate
 		from Welfare
 		order by id desc
 	</select>
 	
 	<!-- 복지 시설 상세 조회 -->
 	<select id="selectWelfareById" resultType="Welfare">
-		select 	id, region, place_name, event_name, start_date, finish_date, phone,
-				place_url, detail, address_name, road_address_name, lat, lng
+		select 	id, kind, place_name, event_name, start_date, finish_date, phone,
+				place_url, detail, address_name, road_address_name, lat, lng, review_num, sum_rate
 		from Welfare
 		where id = #{id}
 	</select>
@@ -23,10 +23,10 @@
 	<!-- 복지 시설 등록 -->
 	<insert id="insertWelfare" parameterType="Welfare">
 		insert into Welfare(
-			id, region, place_name, event_name, start_date, finish_date, phone,
+			id, kind, place_name, event_name, start_date, finish_date, phone,
 				place_url, detail, address_name, road_address_name, lat, lng
 		) values (
-			#{id}, #{region}, #{place_name}, #{event_name}, #{start_date}, #{finish_date},
+			#{id}, #{kind}, #{place_name}, #{event_name}, #{start_date}, #{finish_date},
 			#{phone}, #{place_url}, #{detail}, #{address_name}, #{road_address_name},
 			#{lat}, #{lng}
 		)
@@ -36,7 +36,7 @@
 	<update id="updateWelfare" parameterType="Welfare">
 		update	Welfare
 		   set	id = #{id},
-		   		region = #{region},
+		   		kind = #{kind},
 		   		place_name = #{place_name},
 		   		event_name = #{event_name},
 		   		start_date = #{start_date},
@@ -58,5 +58,15 @@
 		 where id = #{id}
 	</delete>
 
+	<update id="updateWelfareRate">
+		update Welfare
+		set review_num =	(select count(*)
+							from ReviewWelfare
+							where welfare_id=#{id}),
+		   	   sum_rate =	(select sum(review_rate)
+							from ReviewWelfare
+							where welfare_id=#{id})
+		 where id = #{id}
+	</update>
 </mapper>
 
