@@ -43,7 +43,9 @@ lng				varchar(30),							-- 시설 lng(y)
 category_group_code	varchar(30),						-- 카테고리코드
 category_group_name	varchar(30),						-- 카테고리이름
 place_url		varchar(50),							-- 정보 url
-discount 		varchar(30)								-- 할인률 정보
+discount 		varchar(30),							-- 할인률 정보
+review_num		int,									-- 리뷰개수
+sum_rate		int										-- 평점 합계
 );
 
 -- PX 상품 정보
@@ -114,4 +116,6 @@ CREATE TABLE Welfare (
 	road_address_name VARCHAR(100),				-- 도로명 주소
 	lat               VARCHAR(30),				-- 시설 lat(x)
 	lng               VARCHAR(30) 				-- 시설 lng(y)
+	review_num		  int,						-- 리뷰개수
+	sum_rate		  int						-- 평점 합계
 );
