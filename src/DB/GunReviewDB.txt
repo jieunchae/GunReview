@@ -3,9 +3,12 @@ create database if not exists gunreview;
 use gunreview;
 
 -- 회원 테이블
-CREATE TABLE User (
-userid			varchar(50)	primary key,				-- 유저아이디
-birth			date,									-- 생년월일
+create table User(
+id			varchar(30) primary key	,	-- 아이디
+email		varchar(50)	,				-- 이메일
+age_range	varchar(10) ,				-- 연령대
+birthday	varchar(10)	,				-- 생일
+gender		varchar(10)					-- 성별
 );
 
 -- 관심지역 테이블
