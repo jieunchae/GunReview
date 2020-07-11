@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mnd.gunreview.dao.InfoProductDAO">
+	
+	<!-- 모든 상품 종류 조회 -->
+	<select id="selectAllProduct" resultType="InfoProduct">
+		select no, name, detail, price, sum_rate, review_num, rep_img
+		from InfoProduct
+	</select>
+	
+	<!-- 상세 정보 기입 -->
+	<update id="updateDetail">
+		update InfoProduct
+		set detail = #{detail}
+		where name = #{name}
+	</update>
+	
+	<!-- 가격 기입 -->
+	<update id="updatePrice">
+		update InfoProduct
+		set price = #{price}
+		where name = #{name}
+	</update>
+	
+	
+	
+	<!-- 아래부터는 ReviewPX의 Service에 들어가 추가적인 기능을 할 쿼리들 -->
+	
+	<!-- 총 평점 업데이트 -->
+	<update id="updateSumRate">
+		update InfoProduct
+		set sum_rate = 
+			(select sum(review_rate) from ReviewPX where review_productname=#{review_productname} group by review_productname)
+		where name = #{review_productname}
+	</update>
+	
+	<!-- 리뷰 개수 증가 -->
+	<update id="updateNum">
+		update InfoProduct
+		set review_num = review_num + 1
+		where name = #{review_productname}
+	</update>
+		
+	<!-- 대표 이미지 넣기(review 삽입 후 판단) -->
+	<update id="updateImg">
+		update InfoProduct
+		set rep_img = 
+			(select review_img from ReviewPX where review_productname = #{review_productname} and review_img is not null limit 1)
+		where name = #{review_productname}
+	</update>	
+</mapper>
+

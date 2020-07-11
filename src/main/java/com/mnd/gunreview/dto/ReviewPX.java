@@ -8,7 +8,7 @@ public class ReviewPX {
 	private Date review_datetime;
 	private Date review_modifytime;
 	private String review_img;						
-	private double review_rate;									
+	private int review_rate;							
 	private String review_userid;				
 	private String review_nickname;						
 	private Date review_birth;							
@@ -19,7 +19,7 @@ public class ReviewPX {
 	}
 	
 	public ReviewPX(int no, String review_content, Date review_datetime, Date review_modifytime, String review_img,
-			double review_rate, String review_userid, String review_nickname, Date review_birth,
+			int review_rate, String review_userid, String review_nickname, Date review_birth,
 			String review_productname) {
 		super();
 		this.no = no;
@@ -63,10 +63,10 @@ public class ReviewPX {
 	public void setReview_img(String review_img) {
 		this.review_img = review_img;
 	}
-	public double getReview_rate() {
+	public int getReview_rate() {
 		return review_rate;
 	}
-	public void setReview_rate(double review_rate) {
+	public void setReview_rate(int review_rate) {
 		this.review_rate = review_rate;
 	}
 	public String getReview_userid() {

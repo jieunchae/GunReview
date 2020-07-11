@@ -11,20 +11,19 @@
 		where review_productname = #{review_productname}
 	</select>
 	
-	<!-- 자신의 아이디로 쓴 리뷰 조회(전체 상품에 대해) 
+	<!-- 자신의 아이디로 쓴 리뷰 조회(전체 상품에 대해) -->
 	<select id="selectAllReviewByUserId" resultType="ReviewPX">
 		select no, review_content, review_datetime, review_modifytime, review_img, review_rate, review_userid, review_nickname, review_birth, review_productname
 		from ReviewPX
 		where review_userid = #{review_userid}
 	</select>
--->
-	<!-- 자신의 아이디로 쓴 리뷰 조회(해당 상품에 대해)
+
+	<!-- 자신의 아이디로 쓴 리뷰 조회(해당 상품에 대해) -->
 	<select id="selectReviewByUserId" resultType="ReviewPX">
 		select no, review_content, review_datetime, review_modifytime, review_img, review_rate, review_userid, review_nickname, review_birth, review_productname
 		from ReviewPX
 		where review_userid = #{review_userid} and review_productname= #{review_productname}
 	</select>
-	-->
 	
 	<!-- 리뷰 작성 -->
 	<insert id="insertReview" parameterType="ReviewPX">
