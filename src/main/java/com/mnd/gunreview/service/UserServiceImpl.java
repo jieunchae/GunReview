@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User selectUserByUserid(String userid) {
-		return userDao.selectUserByUserid(userid);
+	public User selectUserById(String id) {
+		return userDao.selectUserById(id);
 	}
 
 	@Override
@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int deleteUser(String userid) {
-		return userDao.deleteUser(userid);
+	public int deleteUser(String id) {
+		return userDao.deleteUser(id);
 	}
 
 }

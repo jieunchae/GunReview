@@ -43,10 +43,10 @@ public class UserController {
 		}
 
 	  @ApiOperation(value = "유저 ID에 해당하는 회원 정보를 반환한다.", response = User.class)    
-		@GetMapping("{userid}")
-		public ResponseEntity<User> selectUserByUserid(@PathVariable String userid) {
+		@GetMapping("{id}")
+		public ResponseEntity<User> selectUserByUserid(@PathVariable String id) {
 			logger.debug("detailShop - 호출");
-			return new ResponseEntity<User>(userService.selectUserByUserid(userid), HttpStatus.OK);
+			return new ResponseEntity<User>(userService.selectUserById(id), HttpStatus.OK);
 		}
 
 	  @ApiOperation(value = "새로운 회원 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
@@ -72,10 +72,10 @@ public class UserController {
 		}
 
 	  @ApiOperation(value = "유저 id에 해당하는 회원 정보를 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
-		@DeleteMapping("{userid}")
-		public ResponseEntity<String> deleteBoard(@PathVariable String userid) {
+		@DeleteMapping("{id}")
+		public ResponseEntity<String> deleteBoard(@PathVariable String id) {
 			logger.debug("deleteUser- 호출");
-			if (userService.deleteUser(userid) == 1) {
+			if (userService.deleteUser(id) == 1) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}
 			return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);

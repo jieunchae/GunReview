@@ -9,8 +9,8 @@ import com.mnd.gunreview.dto.User;
 @Mapper
 public interface UserDAO {
 	public List<User> selectUser();
-	public User selectUserByUserid(String userid);
+	public User selectUserById(String id);
 	public int insertUser(User user);
 	public int updateUser(User user);
-	public int deleteUser(String userid);
+	public int deleteUser(String id);
 }
