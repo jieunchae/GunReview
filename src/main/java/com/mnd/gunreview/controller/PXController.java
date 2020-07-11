@@ -46,7 +46,7 @@ public class PXController {
 
   @ApiOperation(value = "장소 ID에 해당하는 정보를 반환한다.", response = PX.class)    
 	@GetMapping("{year}/{month}")
-	public ResponseEntity<List<PX>> selectProductByPeriod(@PathVariable int year, int month) {
+	public ResponseEntity<List<PX>> selectProductByPeriod(@PathVariable int year, @PathVariable int month) {
 		logger.debug("selectProductByPeriod - 호출");
 		return new ResponseEntity<List<PX>>(pxService.selectProductByPeriod(year, month), HttpStatus.OK);
 	}
