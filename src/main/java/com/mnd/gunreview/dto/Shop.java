@@ -14,6 +14,7 @@ public class Shop {
 	private String discount;
 	private int review_num;
 	private int sum_rate;
+	private String rep_img;
 	
 	public String getId() {
 		return id;
@@ -120,9 +121,19 @@ public class Shop {
 		this.sum_rate = sum_rate;
 	}
 
+
+
+	public String getRep_img() {
+		return rep_img;
+	}
+
+	public void setRep_img(String rep_img) {
+		this.rep_img = rep_img;
+	}
+
 	public Shop(String id, String phone, String place_name, String address_name, String road_address_name, String lat,
 			String lng, String category_group_code, String category_group_name, String place_url, String discount,
-			int review_num, int sum_rate) {
+			int review_num, int sum_rate, String rep_img) {
 		super();
 		this.id = id;
 		this.phone = phone;
@@ -137,6 +148,7 @@ public class Shop {
 		this.discount = discount;
 		this.review_num = review_num;
 		this.sum_rate = sum_rate;
+		this.rep_img = rep_img;
 	}
 
 	public Shop() {

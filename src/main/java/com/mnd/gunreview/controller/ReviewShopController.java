@@ -83,6 +83,18 @@ public class ReviewShopController {
 		logger.debug("insertReviewShop - 호출");
 		if (reviewShopService.insertReviewShop(review) == 1) {
 			shopService.updateShopRate(review.getShop_id());
+			
+			//대표 이미지 바뀌는 곳
+			Shop shop = shopService.selectShopById(review.getShop_id());
+			if(shop != null) {
+				if(shop.getRep_img() == null || shop.getRep_img() == "") {
+					if(review.getReview_img() != null && review.getReview_img() != "") {
+						shop.setRep_img(review.getReview_img());
+						shopService.updateShop(shop);
+					}
+				}
+			}
+			
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
