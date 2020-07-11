@@ -50,7 +50,7 @@ public class ShopController {
 	}
   @ApiOperation(value = "중심 좌표 기준 3km내의 모든 상업시설을 반환한다.", response = Shop.class)    
  	@GetMapping("loc/{lat}/{lng}")
- 	public ResponseEntity<List<Shop>> retrieveShopByLoc(@PathVariable double lat,double lng) {
+ 	public ResponseEntity<List<Shop>> retrieveShopByLoc(@PathVariable double lat,@PathVariable double lng) {
  		logger.debug("retrieveShopByLoc - 호출");
  		return new ResponseEntity<List<Shop>>(shopService.selectShopByLoc(lat,lng), HttpStatus.OK);
  	}
