@@ -43,12 +43,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		//헤더로부터 토큰을 읽음
 		//String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 //		String token =  "hZmg486N40HlXpqPnCzFIIMhpy69aQS0fZ6RBgorDNQAAAFzPsMTig";
-		String token =  "0IKPUaJwchrPwy_f5YPZIHN7_gY33V0IeFbKVQo9dBEAAAFzQNbLAQ";
+		String token =  "vqS6F6z36zmycGkMerwuyTcAIPQHroifzsRLMgopcBMAAAFzQahjeQ";
 		//인증과정 수행
 		//1. 토큰으로 부터 kakao 서버에서 userId를 가져옴 - 만약 토큰이 유효하지 않다면 응답 x
 		String id = getTokenExpired(token);
 		System.out.println("id : "+ id);
-		User user = new User();
+		User user = null;
 		if(id.equals("expired")) {
 			//만료응답
 		}else if(id.equals("type_error")) {
@@ -57,11 +57,14 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			//2. 토큰으로 가져온 userId가 DB에 있는지 확인
 			try {
 				user = userService.selectUserById(id);
+				System.out.println(user.toString());
 			}catch(NullPointerException e) {
 				//3.없으면 insert
 				if(user ==null) {
-				user = getUserInfo(token); //user 정보 받아오기
-				userService.insertUser(user);
+					System.out.println("user null");
+					user = getUserInfo(token); //user 정보 받아오기
+				
+					userService.insertUser(user);
 				}
 //				user = getUserInfo(token); //user 정보 받아오기
 //				System.out.println(user.toString());
