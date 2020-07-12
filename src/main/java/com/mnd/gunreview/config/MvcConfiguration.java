@@ -14,10 +14,13 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthInterceptor())
+		registry.addInterceptor(authInterceptor())
 		.addPathPatterns("/**");
 		//.excludePathPatterns("/css/**");
 		//위에 제외할 로그인 api 경로 넣으삼
 	}
-	
-}
+	  @Bean
+	    public AuthInterceptor authInterceptor() {
+	        return new AuthInterceptor();
+	    }
+}	

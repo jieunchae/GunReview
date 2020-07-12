@@ -5,15 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -23,14 +21,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mnd.gunreview.dto.User;
 import com.mnd.gunreview.service.UserService;
-import com.mnd.gunreview.service.UserServiceImpl;
 
 
 //인증을 위한 인터셉터
 @Component
 public class AuthInterceptor extends HandlerInterceptorAdapter{
-
-	private UserService userService = new UserServiceImpl();
+	
+	@Resource
+	private UserService userService;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -44,26 +42,31 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		
 		//헤더로부터 토큰을 읽음
 		//String token = request.getHeader(HttpHeaders.AUTHORIZATION);
-		String token =  "hZmg486N40HlXpqPnCzFIIMhpy69aQS0fZ6RBgorDNQAAAFzPsMTig";
+//		String token =  "hZmg486N40HlXpqPnCzFIIMhpy69aQS0fZ6RBgorDNQAAAFzPsMTig";
+		String token =  "0IKPUaJwchrPwy_f5YPZIHN7_gY33V0IeFbKVQo9dBEAAAFzQNbLAQ";
 		//인증과정 수행
 		//1. 토큰으로 부터 kakao 서버에서 userId를 가져옴 - 만약 토큰이 유효하지 않다면 응답 x
 		String id = getTokenExpired(token);
-		
+		System.out.println("id : "+ id);
+		User user = new User();
 		if(id.equals("expired")) {
 			//만료응답
 		}else if(id.equals("type_error")) {
 			//형식에러
 		}else {
 			//2. 토큰으로 가져온 userId가 DB에 있는지 확인
-			User user = new User();
 			try {
 				user = userService.selectUserById(id);
 			}catch(NullPointerException e) {
 				//3.없으면 insert
+				if(user ==null) {
 				user = getUserInfo(token); //user 정보 받아오기
-				System.out.println(user.toString());
-				if(user != null)
-					userService.insertUser(user);
+				userService.insertUser(user);
+				}
+//				user = getUserInfo(token); //user 정보 받아오기
+//				System.out.println(user.toString());
+//				if(user != null)
+//					userService.insertUser(user);
 			}
 			
 			//4. 있다면 user정보 넘겨줌
@@ -94,7 +97,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			
 			int responseCode = conn.getResponseCode();
 			System.out.println("responseCode : " + responseCode);
-			
 			if(responseCode == 401) {	//토큰 만료
 				return "expired";
 			}else if(responseCode == 400) {	//잘못된 형식
