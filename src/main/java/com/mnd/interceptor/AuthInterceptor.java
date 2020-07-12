@@ -43,9 +43,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		//헤더로부터 토큰을 읽음
 		//String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 //		String token =  "hZmg486N40HlXpqPnCzFIIMhpy69aQS0fZ6RBgorDNQAAAFzPsMTig";
-=======
+
 		String token =  "vqS6F6z36zmycGkMerwuyTcAIPQHroifzsRLMgopcBMAAAFzQahjeQ";
->>>>>>> branch 'master' of https://github.com/jieunchae/GunReview.git
 		//인증과정 수행
 		//1. 토큰으로 부터 kakao 서버에서 userId를 가져옴 - 만약 토큰이 유효하지 않다면 응답 x
 		String id = getTokenExpired(token);
