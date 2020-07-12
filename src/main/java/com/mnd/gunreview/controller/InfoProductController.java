@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,17 +40,17 @@ public class InfoProductController {
 		return new ResponseEntity<List<InfoProduct>>(infoProductService.selectAllProduct(), HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "해당 상품의 detail 수정. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@ApiOperation(value = "해당 상품의 detail 수정, 검색은 name 기준. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping("{detail}")
-	public ResponseEntity<String> updateDetail(String name, String detail) {
+	public ResponseEntity<String> updateDetail(@PathVariable String name,@PathVariable  String detail) {
 		logger.debug("updateDetail - 호출");
 		if (infoProductService.updateDetail(name, detail) == 1) return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 	
-	@ApiOperation(value = "해당 상품의 price 수정. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@ApiOperation(value = "해당 상품의 price 수정, 검색은 name 기준. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping("{price}")
-	public ResponseEntity<String> updatePrice(String name, int price) {
+	public ResponseEntity<String> updatePrice(@PathVariable String name,@PathVariable int price) {
 		logger.debug("updatePrice - 호출");
 		if (infoProductService.updatePrice(name, price) == 1) return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
