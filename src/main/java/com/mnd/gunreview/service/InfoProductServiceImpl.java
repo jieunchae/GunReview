@@ -44,4 +44,9 @@ public class InfoProductServiceImpl implements InfoProductService {
 		return infoProductDao.updateImg(review_productname);
 	}
 
+	@Override
+	public InfoProduct selectProductByName(String review_productname) {
+		return infoProductDao.selectProductByName(review_productname);
+	}
+
 }

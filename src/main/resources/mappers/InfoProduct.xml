@@ -10,6 +10,13 @@
 		from InfoProduct
 	</select>
 	
+	<!-- 상품 이름으로 조회 -->
+	<select id="selectProductByName" resultType="InfoProduct">
+		select no, name, detail, price, sum_rate, review_num, rep_img
+		from InfoProduct
+		where name = #{name}
+	</select>
+	
 	<!-- 상세 정보 기입 -->
 	<update id="updateDetail">
 		update InfoProduct

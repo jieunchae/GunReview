@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mnd.gunreview.dto.InfoProduct;
 import com.mnd.gunreview.dto.ReviewPX;
+import com.mnd.gunreview.dto.Shop;
 import com.mnd.gunreview.service.InfoProductService;
+import com.mnd.gunreview.service.PXService;
 import com.mnd.gunreview.service.ReviewPXService;
 
 import io.swagger.annotations.ApiOperation;
@@ -70,7 +73,11 @@ public class ReviewPXController {
 		if(reviewPXService.insertReview(review) == 1) {
 			infoProductService.updateSumRate(review.getReview_productname());
 			infoProductService.updateNum(review.getReview_productname());
+			String rep_img = infoProductService.selectProductByName(review.getReview_productname()).getRep_img();
+			if((rep_img ==null || rep_img.equals("")) && (review.getReview_img() != null && !review.getReview_img().equals(""))) {
 			infoProductService.updateImg(review.getReview_productname());
+			}
+			
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);

@@ -11,10 +11,10 @@
 	</select>
 	
 	<!-- 해당 연도, 달의 모든 상품 검색 -->
-	<select id="selectProductByPeriod" resultType="PX">
-		select no, year, month, criteria, name 
-		from PX
-		where year = #{year} and month= #{month}
+	<select id="selectProductByPeriod" resultType="Product">
+		select px.no, year, month, criteria, px.name, detail,price,sum_rate,review_num,rep_img
+		from PX px join InfoProduct ipx on px.name=ipx.name
+		where px.year = #{year} and px.month= #{month}
 	</select>
 	
 </mapper>

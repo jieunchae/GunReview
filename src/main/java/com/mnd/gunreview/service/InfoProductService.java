@@ -6,6 +6,7 @@ import com.mnd.gunreview.dto.InfoProduct;
 
 public interface InfoProductService {
 	public List<InfoProduct> selectAllProduct();
+	public InfoProduct selectProductByName(String review_productname);
 	public int updateDetail(String name, String detail);
 	public int updatePrice(String name, int price);
 	
