@@ -34,6 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mnd.gunreview.dao.ShopDAO;
 import com.mnd.gunreview.dto.ReviewShop;
+import com.mnd.gunreview.dto.ReviewWelfare;
 import com.mnd.gunreview.dto.Shop;
 import com.mnd.gunreview.service.ReviewShopService;
 import com.mnd.gunreview.service.ShopService;
@@ -111,7 +112,7 @@ public class ReviewShopController {
 			
 	  		//웹서비스 경로 지정
 			String root_path = request.getSession().getServletContext().getRealPath("/");
-			String attach_path = "resources/upload/";
+			String attach_path = "resourse/upload/";
 			String filename = dateString+"_"+uploadfile.getOriginalFilename();
 			
 			//System.out.println(root_path+attach_path+filename);
@@ -158,8 +159,9 @@ public class ReviewShopController {
 	@DeleteMapping("{no}")
 	public ResponseEntity<String> deleteReviewShop(@PathVariable int no) {
 		logger.debug("deleteReviewShop - 호출");
+		String shop_id = reviewShopService.selectReviewShopByNo(no).getShop_id();
 		if (reviewShopService.deleteReviewShop(no) == 1) {
-			shopService.updateShopRate(reviewShopService.selectReviewShopByNo(no).getShop_id());
+			shopService.updateShopRate(shop_id);
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
@@ -177,5 +179,13 @@ public class ReviewShopController {
 	public ResponseEntity<List<ReviewShop>> selectReviewShopByIdPage(@PathVariable String id,int page) {
 		logger.debug("selectReviewShopByIdPage - 호출");
 		return new ResponseEntity<List<ReviewShop>>(reviewShopService.selectReviewShopByIdPage(id, page), HttpStatus.OK);
+	}
+  
+	
+  @ApiOperation(value = "자신의 아이디로 쓴 리뷰 조회(전체 상품에 대해)", response = List.class)
+	@GetMapping("myreview/{userid}")
+	public ResponseEntity<List<ReviewShop>> selectAllReviewByUserId(@PathVariable String userid) throws Exception {
+		logger.debug("selectAllReviewByUserId - 호출");
+		return new ResponseEntity<List<ReviewShop>>(reviewShopService.selectAllReviewByUserId(userid), HttpStatus.OK);
 	}
 }

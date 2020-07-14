@@ -24,10 +24,10 @@ public class ReviewPXServiceImpl implements ReviewPXService {
 		return reviewPXDao.selectReviewByProduct(review_productname);
 	}
 
-//	@Override
-//	public List<ReviewPX> selectAllReviewByUserId(String review_userid) {
-//		return reviewPXDao.selectAllReviewByUserId(review_userid);
-//	}
+	@Override
+	public List<ReviewPX> selectAllReviewByUserId(String review_userid) {
+		return reviewPXDao.selectAllReviewByUserId(review_userid);
+	}
 //
 //	@Override
 //	public List<ReviewPX> selectReviewByUserId(String review_userid, String review_productname) {
@@ -47,6 +47,11 @@ public class ReviewPXServiceImpl implements ReviewPXService {
 	@Override
 	public int deleteReview(int no) {
 		return reviewPXDao.deleteReview(no);
+	}
+
+	@Override
+	public ReviewPX selectReviewByNo(int no) {
+		return reviewPXDao.selectReviewByNo(no);
 	}
 
 }

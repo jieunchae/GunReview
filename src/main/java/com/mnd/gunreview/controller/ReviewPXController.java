@@ -51,12 +51,12 @@ public class ReviewPXController {
 		return new ResponseEntity<List<ReviewPX>>(reviewPXService.selectReviewByProduct(review_productname), HttpStatus.OK);
 	}
 	
-//	@ApiOperation(value = "자신의 아이디로 쓴 리뷰 조회(전체 상품에 대해)", response = List.class)
-//	@GetMapping("{userid}")
-//	public ResponseEntity<List<ReviewPX>> selectAllReviewByUserId(@PathVariable String userid) throws Exception {
-//		logger.debug("selectAllReviewByUserId - 호출");
-//		return new ResponseEntity<List<ReviewPX>>(reviewPXService.selectAllReviewByUserId(userid), HttpStatus.OK);
-//	}
+	@ApiOperation(value = "자신의 아이디로 쓴 리뷰 조회(전체 상품에 대해)", response = List.class)
+	@GetMapping("myreview/{userid}")
+	public ResponseEntity<List<ReviewPX>> selectAllReviewByUserId(@PathVariable String userid) throws Exception {
+		logger.debug("selectAllReviewByUserId - 호출");
+		return new ResponseEntity<List<ReviewPX>>(reviewPXService.selectAllReviewByUserId(userid), HttpStatus.OK);
+	}
 //	
 //	@ApiOperation(value = "자신의 아이디로 쓴 리뷰 조회(해당 상품에 대해)", response = List.class)
 //	@GetMapping("{userid}/{review_productname}")
@@ -88,7 +88,12 @@ public class ReviewPXController {
 	public ResponseEntity<String> updateReviewShop(@RequestBody ReviewPX review) {
 		logger.debug("updateReviewShop - 호출");
 		logger.debug("" + review);
-		if (reviewPXService.updateReview(review) == 1) return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		if (reviewPXService.updateReview(review) == 1) {
+			infoProductService.updateSumRate(review.getReview_productname());
+			infoProductService.updateNum(review.getReview_productname());
+			
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 
@@ -96,7 +101,13 @@ public class ReviewPXController {
 	@DeleteMapping("{no}")
 	public ResponseEntity<String> deleteReview(@PathVariable int no) {
 		logger.debug("deleteReview - 호출");
-		if (reviewPXService.deleteReview(no) == 1) return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		String product_name = reviewPXService.selectReviewByNo(no).getReview_productname();
+		if (reviewPXService.deleteReview(no) == 1) {
+			infoProductService.updateSumRate(product_name);
+			infoProductService.updateNum(product_name);
+			
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 }

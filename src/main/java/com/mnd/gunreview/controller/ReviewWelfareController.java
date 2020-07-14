@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mnd.gunreview.dto.ReviewPX;
 import com.mnd.gunreview.dto.ReviewWelfare;
 import com.mnd.gunreview.service.ReviewWelfareService;
 import com.mnd.gunreview.service.WelfareService;
@@ -80,8 +81,9 @@ public class ReviewWelfareController {
 	@DeleteMapping("{no}")
 	public ResponseEntity<String> deleteReviewWelfare(@PathVariable int no) {
 		logger.debug("deleteReviewWelfare - 호출");
+		String welfare_id = reviewWelfareService.selectReviewWelfareByNo(no).getWelfare_id();
 		if (reviewWelfareService.deleteReviewWelfare(no) == 1) {
-			welfareService.updateWelfareRate(reviewWelfareService.selectReviewWelfareByNo(no).getWelfare_id());
+			welfareService.updateWelfareRate(welfare_id);
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
@@ -92,5 +94,12 @@ public class ReviewWelfareController {
 	public ResponseEntity<List<ReviewWelfare>> selectReviewShopById(@PathVariable String id) {
 		logger.debug("selectReviewShopById - 호출");
 		return new ResponseEntity<List<ReviewWelfare>>(reviewWelfareService.selectReviewWelfareById(id), HttpStatus.OK);
+	}
+  	
+  @ApiOperation(value = "자신의 아이디로 쓴 리뷰 조회(전체 상품에 대해)", response = List.class)
+	@GetMapping("myreview/{userid}")
+	public ResponseEntity<List<ReviewWelfare>> selectAllReviewByUserId(@PathVariable String userid) throws Exception {
+		logger.debug("selectAllReviewByUserId - 호출");
+		return new ResponseEntity<List<ReviewWelfare>>(reviewWelfareService.selectAllReviewByUserId(userid), HttpStatus.OK);
 	}
 }

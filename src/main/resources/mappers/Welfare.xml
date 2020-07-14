@@ -7,7 +7,7 @@
 	<!-- 복지 시설 전체 조회 -->
 	<select id="selectWelfare" resultType="Welfare">
 		select 	id, kind, place_name, event_name, start_date, finish_date, phone,
-				place_url, detail, address_name, road_address_name, lat, lng,review_num,sum_rate
+				place_url, detail, address_name, road_address_name, lat, lng,review_num,sum_rate,type
 		from Welfare
 		order by id desc
 	</select>
@@ -15,7 +15,7 @@
 	<!-- 복지 시설 상세 조회 -->
 	<select id="selectWelfareById" resultType="Welfare">
 		select 	id, kind, place_name, event_name, start_date, finish_date, phone,
-				place_url, detail, address_name, road_address_name, lat, lng, review_num, sum_rate
+				place_url, detail, address_name, road_address_name, lat, lng, review_num, sum_rate,type
 		from Welfare
 		where id = #{id}
 	</select>
@@ -24,11 +24,11 @@
 	<insert id="insertWelfare" parameterType="Welfare">
 		insert into Welfare(
 			id, kind, place_name, event_name, start_date, finish_date, phone,
-				place_url, detail, address_name, road_address_name, lat, lng
+				place_url, detail, address_name, road_address_name, lat, lng,type
 		) values (
 			#{id}, #{kind}, #{place_name}, #{event_name}, #{start_date}, #{finish_date},
 			#{phone}, #{place_url}, #{detail}, #{address_name}, #{road_address_name},
-			#{lat}, #{lng}
+			#{lat}, #{lng},#{type}
 		)
 	</insert>
 	

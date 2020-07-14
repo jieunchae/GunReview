@@ -41,7 +41,7 @@ public class InfoProductController {
 	}
 	
 	@ApiOperation(value = "해당 상품의 detail 수정, 검색은 name 기준. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
-	@PutMapping("{detail}")
+	@PutMapping("detail/{name}/{detail}")
 	public ResponseEntity<String> updateDetail(@PathVariable String name,@PathVariable  String detail) {
 		logger.debug("updateDetail - 호출");
 		if (infoProductService.updateDetail(name, detail) == 1) return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
@@ -49,7 +49,7 @@ public class InfoProductController {
 	}
 	
 	@ApiOperation(value = "해당 상품의 price 수정, 검색은 name 기준. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
-	@PutMapping("{price}")
+	@PutMapping("price/{name}/{price}")
 	public ResponseEntity<String> updatePrice(@PathVariable String name,@PathVariable int price) {
 		logger.debug("updatePrice - 호출");
 		if (infoProductService.updatePrice(name, price) == 1) return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);

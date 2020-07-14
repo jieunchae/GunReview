@@ -15,6 +15,7 @@
 		select px.no, year, month, criteria, px.name, detail,price,sum_rate,review_num,rep_img
 		from PX px join InfoProduct ipx on px.name=ipx.name
 		where px.year = #{year} and px.month= #{month}
+		order by px.no
 	</select>
 	
 </mapper>

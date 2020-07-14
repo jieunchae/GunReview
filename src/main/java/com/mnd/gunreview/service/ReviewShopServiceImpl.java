@@ -55,6 +55,11 @@ public class ReviewShopServiceImpl implements ReviewShopService{
 		int page_sql = (page-1)*10;
 		return reviewShopDao.selectReviewShopByIdPage(id, page_sql);
 	}
+
+	@Override
+	public List<ReviewShop> selectAllReviewByUserId(String review_userid) {
+		return reviewShopDao.selectAllReviewByUserId(review_userid);
+	}
 	
 
 }

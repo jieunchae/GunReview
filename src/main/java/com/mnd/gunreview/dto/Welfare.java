@@ -18,7 +18,14 @@ public class Welfare {
 	private String lng;
 	private int review_num;
 	private int sum_rate;
+	private int type;
 	
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
 	public String getId() {
 		return id;
 	}
@@ -130,6 +137,7 @@ public class Welfare {
 		this.lng = lng;
 		this.review_num = review_num;
 		this.sum_rate = sum_rate;
+		this.type=2;
 	}
 	public Welfare() {
 		super();

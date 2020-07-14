@@ -14,4 +14,5 @@ public interface ReviewWelfareDAO {
 	public int updateReviewWelfare(ReviewWelfare review);
 	public int deleteReviewWelfare(int no);
 	public List<ReviewWelfare> selectReviewWelfareById(String id);
+	public List<ReviewWelfare> selectAllReviewByUserId(String userid);
 }

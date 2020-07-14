@@ -43,6 +43,11 @@ public class ReviewWelfareServiceImpl implements ReviewWelfareService{
 	public List<ReviewWelfare> selectReviewWelfareById(String id) {
 		return reviewWelfareDao.selectReviewWelfareById(id);
 	}
+
+	@Override
+	public List<ReviewWelfare> selectAllReviewByUserId(String userid) {
+		return reviewWelfareDao.selectAllReviewByUserId(userid);
+	}
 	
 
 }

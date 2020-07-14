@@ -13,4 +13,5 @@ public interface ReviewShopService {
 	public List<ReviewShop> selectReviewShopById(String id);
 	public List<ReviewShop> selectReviewShopByPage(int page);
 	public List<ReviewShop> selectReviewShopByIdPage(String id,int page);
+	public List<ReviewShop> selectAllReviewByUserId(String review_userid);
 }

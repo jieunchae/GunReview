@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -41,10 +42,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		//logger.debug("Request URI=====>" + request.getRequestURI());
 		
 		//헤더로부터 토큰을 읽음
-		//String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+		String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 //		String token =  "hZmg486N40HlXpqPnCzFIIMhpy69aQS0fZ6RBgorDNQAAAFzPsMTig";
 
-		String token =  "vqS6F6z36zmycGkMerwuyTcAIPQHroifzsRLMgopcBMAAAFzQahjeQ";
+//		String token =  "vqS6F6z36zmycGkMerwuyTcAIPQHroifzsRLMgopcBMAAAFzQahjeQ";
 		//인증과정 수행
 		//1. 토큰으로 부터 kakao 서버에서 userId를 가져옴 - 만약 토큰이 유효하지 않다면 응답 x
 		String id = getTokenExpired(token);
