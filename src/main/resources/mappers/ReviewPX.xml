@@ -9,6 +9,7 @@
 		select no, review_content, review_datetime, review_modifytime, review_img, review_rate, review_userid, review_nickname, review_birth, review_productname
 		from ReviewPX 
 		where review_productname = #{review_productname}
+		order by no desc
 	</select>
 	
 	<select id="selectReviewByNo" resultType="ReviewPX">
@@ -21,6 +22,7 @@
 		select no, review_content, review_datetime, review_modifytime, review_img, review_rate, review_userid, review_nickname, review_birth, review_productname
 		from ReviewPX
 		where review_userid = #{review_userid}
+		order by no desc
 	</select>
 
 	<!-- 자신의 아이디로 쓴 리뷰 조회(해당 상품에 대해)
