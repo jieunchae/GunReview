@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/api/shop")
 public class ShopController {
-
+ 
 	private static final Logger logger = LoggerFactory.getLogger(ShopController.class);
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
