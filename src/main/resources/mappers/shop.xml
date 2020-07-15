@@ -7,7 +7,7 @@
 	<!-- 상업 시설 전체 조회 -->
 	<select id="selectShop" resultType="shop">
 		select id, phone, place_name, address_name, road_address_name,
-				lat, lng, category_group_code, category_group_name, place_url, discount, review_num, sum_rate, rep_img
+				lat, lng, category_group_code, category_group_name, place_url, discount, review_num, sum_rate, rep_img, openHour
 		from Shop
 		order by id desc
 	</select>
@@ -15,7 +15,7 @@
 	<!-- 상업 시설 상세 조회 -->
 	<select id="selectShopById" resultType="shop">
 		select id, phone, place_name, address_name, road_address_name,
-				lat, lng, category_group_code, category_group_name, place_url, discount, review_num, sum_rate, rep_img
+				lat, lng, category_group_code, category_group_name, place_url, discount, review_num, sum_rate, rep_img, openHour
 		from Shop
 		where id = #{id}
 	</select>
@@ -50,7 +50,7 @@
 		   	   discount = #{discount},
 		   	   review_num = #{review_num},
 		   	   sum_rate = #{sum_rate},
-		   	   rep_img = #{rep_img}
+		   	   rep_img = #{rep_img},
 		 where id = #{id}
 	</update>
 
@@ -63,7 +63,7 @@
 	
 	<select id="selectShopByLoc" resultType="shop">
 		select id, phone, place_name, address_name, road_address_name,
-				lat, lng, category_group_code, category_group_name, place_url, discount, review_num, sum_rate, rep_img
+				lat, lng, category_group_code, category_group_name, place_url, discount, review_num, sum_rate, rep_img, openHour
 		from Shop
 		<![CDATA[where (ACOS( COS( RADIANS( 90-CAST(lat as DECIMAL(16,13)) )) * COS( RADIANS( 90-#{lat} )) + SIN( RADIANS( 90-CAST(lat as DECIMAL(16,13)) )) * SIN( RADIANS( 90-#{lat} )) * COS( RADIANS( lng-#{lng} ))) * 6378.137) <= 3]]>
 		order by sum_rate/review_num desc
@@ -78,6 +78,13 @@
 							from ReviewShop
 							where shop_id=#{id})
 		 where id = #{id}
+	</update>
+	
+	<!-- 식당의 영업시간 update -->
+	<update id="updateOpenHour">
+		update Shop
+		set openHour = #{openHour}
+		where id = #{id} and openHour is null
 	</update>
 </mapper>
 

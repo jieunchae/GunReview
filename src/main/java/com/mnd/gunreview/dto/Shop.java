@@ -15,6 +15,7 @@ public class Shop {
 	private int review_num;
 	private int sum_rate;
 	private String rep_img;
+	private String openHour;
 	
 	public String getId() {
 		return id;
@@ -131,9 +132,19 @@ public class Shop {
 		this.rep_img = rep_img;
 	}
 
+	
+
+	public String getOpenHour() {
+		return openHour;
+	}
+
+	public void setOpenHour(String openHour) {
+		this.openHour = openHour;
+	}
+
 	public Shop(String id, String phone, String place_name, String address_name, String road_address_name, String lat,
 			String lng, String category_group_code, String category_group_name, String place_url, String discount,
-			int review_num, int sum_rate, String rep_img) {
+			int review_num, int sum_rate, String rep_img, String openHour) {
 		super();
 		this.id = id;
 		this.phone = phone;
@@ -149,6 +160,7 @@ public class Shop {
 		this.review_num = review_num;
 		this.sum_rate = sum_rate;
 		this.rep_img = rep_img;
+		this.openHour = openHour;
 	}
 
 	public Shop() {

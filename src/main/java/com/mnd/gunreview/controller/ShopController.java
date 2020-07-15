@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.mnd.crawling.JsonReader;
 import com.mnd.gunreview.dto.Shop;
 import com.mnd.gunreview.service.ShopService;
 
@@ -60,6 +63,7 @@ public class ShopController {
 	public ResponseEntity<String> writeShop(@RequestBody Shop shop) {
 		logger.debug("writeShop - 호출");
 		if (shopService.insertShop(shop) == 1) {
+			shopService.updateOpenHour(shop.getId(), getOpenHour(shop.getId()));
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
@@ -86,4 +90,25 @@ public class ShopController {
 		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
+  
+  public String getOpenHour(String shopId) {
+	  JsonReader jsonReader = new JsonReader();
+		StringBuilder URL = new StringBuilder("https://place.map.kakao.com/main/v/");
+		URL.append("1862219579");
+		String getJson = jsonReader.callURL(URL.toString());
+		
+		JsonParser parser = new JsonParser();
+		JsonObject object = (JsonObject) parser.parse(getJson);
+		com.google.gson.JsonArray openHour = (com.google.gson.JsonArray) ((JsonObject)((JsonObject)object.get("basicInfo")).get("openHour")).get("periodList");
+		com.google.gson.JsonArray timeList = (com.google.gson.JsonArray) ((JsonObject) openHour.get(0)).get("timeList");
+		
+		StringBuilder sb = new StringBuilder();
+		for(int i=0;i<timeList.size();i++) {
+			JsonObject obj = (JsonObject) timeList.get(i);
+			sb.append(obj.get("dayOfWeek").toString().substring(1, obj.get("dayOfWeek").toString().length()-1) + " : ");
+			sb.append(obj.get("timeSE").toString().substring(1, obj.get("timeSE").toString().length()-1));
+			sb.append("<br>");
+		}
+		return sb.toString();
+  }
 }
