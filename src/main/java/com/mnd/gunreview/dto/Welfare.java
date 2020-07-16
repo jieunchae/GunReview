@@ -16,6 +16,7 @@ public class Welfare {
 	private String road_address_name;
 	private String lat;
 	private String lng;
+	private String rep_img;
 	private int review_num;
 	private int sum_rate;
 	private int type;
@@ -118,9 +119,16 @@ public class Welfare {
 		this.sum_rate = sum_rate;
 	}
 	
+	public String getRep_img() {
+		return rep_img;
+	}
+	public void setRep_img(String rep_img) {
+		this.rep_img = rep_img;
+	}
+	
 	public Welfare(String id, String kind, String place_name, String event_name, Date start_date, Date finish_date,
 			String phone, String place_url, String detail, String address_name, String road_address_name, String lat,
-			String lng, int review_num, int sum_rate) {
+			String lng, String rep_img, int review_num, int sum_rate, int type) {
 		super();
 		this.id = id;
 		this.kind = kind;
@@ -135,9 +143,10 @@ public class Welfare {
 		this.road_address_name = road_address_name;
 		this.lat = lat;
 		this.lng = lng;
+		this.rep_img = rep_img;
 		this.review_num = review_num;
 		this.sum_rate = sum_rate;
-		this.type=2;
+		this.type = type;
 	}
 	public Welfare() {
 		super();

@@ -80,5 +80,24 @@ public class UserController {
 			}
 			return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 		}
-	
+	  
+	  @ApiOperation(value = "유저 id에 해당하는 리뷰 개수를 반환한다.", response = List.class)
+	  	@GetMapping("review/{id}")
+		public ResponseEntity<Integer> selectReviewsById(@PathVariable String id) throws Exception {
+			logger.debug("selectReviewsById- 호출");
+			return new ResponseEntity<Integer>(userService.selectReviewsById(id), HttpStatus.OK);
+		}
+	  
+	  @ApiOperation(value = "유저 id에 해당하는 리뷰 점수 합계를 반환한다.", response = List.class)
+	  	@GetMapping("sum/{id}")
+		public ResponseEntity<Integer> selectSumReviewsById(@PathVariable String id) throws Exception {
+			logger.debug("selectSumReviewsgById- 호출");
+			return new ResponseEntity<Integer>(userService.selectSumReviewsById(id), HttpStatus.OK);
+		}
+	  @ApiOperation(value = "유저 id에 해당하는 크레딧 점수를 반환한다.", response = List.class)
+	  	@GetMapping("credit/{id}")
+		public ResponseEntity<Integer> selectCreditById(@PathVariable String id) throws Exception {
+			logger.debug("selectCreditById- 호출");
+			return new ResponseEntity<Integer>(userService.selectCreditById(id), HttpStatus.OK);
+		}
 }

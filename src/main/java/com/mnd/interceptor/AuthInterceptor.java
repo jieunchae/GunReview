@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -42,8 +43,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		//logger.debug("Request URI=====>" + request.getRequestURI());
 		
 		//헤더로부터 토큰을 읽음
-		String token = request.getHeader(HttpHeaders.AUTHORIZATION);
-//		String token =  "hZmg486N40HlXpqPnCzFIIMhpy69aQS0fZ6RBgorDNQAAAFzPsMTig";
+		String token = request.getHeader("Authorization");
+		Date now = new Date();
+//		String token =  "uxU8BG2gdIxFJnOU9jpZ1Z3OZlvwEJAuw1ZpqAopdSkAAAFzUro_KQ";
+		System.out.println(now+ " ============== Token : "+token);
 
 //		String token =  "vqS6F6z36zmycGkMerwuyTcAIPQHroifzsRLMgopcBMAAAFzQahjeQ";
 		//인증과정 수행
@@ -55,6 +58,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			//만료응답
 		}else if(id.equals("type_error")) {
 			//형식에러
+			return false;
 		}else {
 			//2. 토큰으로 가져온 userId가 DB에 있는지 확인
 			try {
@@ -163,16 +167,22 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			//Json 파싱
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
-			
+			try {
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+			}catch(NullPointerException e) {
+				System.out.println("==================properties Null==============");
+			}
 			JsonObject kakao_account = element.getAsJsonObject().getAsJsonObject("kakao_account").getAsJsonObject();
 			
 			
 			String id = element.getAsJsonObject().get("id").getAsString();
 			user.setId(id);
+			try {
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
 			user.setEmail(email);
-			
+			}catch(NullPointerException e) {
+				user.setEmail("");
+			}
 			try {
 				String age_range = kakao_account.getAsJsonObject().get("age_range").getAsString();
 				user.setAge_range(age_range);
@@ -187,15 +197,18 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 				user.setBirthday("");
 			}
 			
+			try {
 			String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
 			user.setGender(gender);
-			
+			}catch(NullPointerException e) {
+				user.setGender("");
+			}
 			//확인
 			System.out.println("id : " + id);
-			System.out.println("email : " + email);
+//			System.out.println("email : " + email);
 			//System.out.println("age_range : " + age_range);
 			//System.out.println("birthday : " + birthday);
-			System.out.println("gender : " + gender);
+//			System.out.println("gender : " + gender);
 				
 			br.close();
 		} catch(IOException e) {

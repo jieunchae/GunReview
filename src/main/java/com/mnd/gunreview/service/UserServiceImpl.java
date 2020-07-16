@@ -39,4 +39,19 @@ public class UserServiceImpl implements UserService{
 		return userDao.deleteUser(id);
 	}
 
+	@Override
+	public int selectReviewsById(String review_userid) {
+		return userDao.selectReviewsById(review_userid);
+	}
+
+	@Override
+	public int selectSumReviewsById(String review_userid) {
+		return userDao.selectSumReviewsById(review_userid);
+	}
+
+	@Override
+	public int selectCreditById(String review_userid) {
+		return userDao.selectCreditById(review_userid);
+	}
+
 }

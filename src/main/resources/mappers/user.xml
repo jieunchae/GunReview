@@ -43,6 +43,28 @@
 		from 	User
 		where 	id = #{id}
 	</delete>
-
+	
+	<!-- 리뷰 개수 -->
+	<select id="selectReviewsById"  resultType="int">
+	select 	(select count(*) from ReviewShop where review_userid=#{review_userid})
+			+(select count(*) from ReviewPX where review_userid=#{review_userid})
+			+(select count(*) from ReviewWelfare where review_userid=#{review_userid}) as review_count
+	from dual;
+	</select>
+	
+	<select id="selectSumReviewsById"  resultType="int">
+	select 	(ifnull((select sum(review_rate) from ReviewShop where review_userid=#{review_userid}),0)
+			+ifnull((select sum(review_rate) from ReviewPX where review_userid=#{review_userid}),0)
+			+ifnull((select sum(review_rate) from ReviewWelfare where review_userid=#{review_userid}),0)) as review_sum
+	from dual;
+	</select>
+	
+	<select id="selectCreditById"  resultType="int">
+	select 	(ifnull((select sum(review_rate) from ReviewShop where review_userid=#{review_userid}),0)
+			+ifnull((select sum(review_rate) from ReviewPX where review_userid=#{review_userid}),0)*3
+			+ifnull((select sum(review_rate) from ReviewWelfare where review_userid=#{review_userid}),0)*5) as credit
+	from dual;
+	</select>
+	
 </mapper>
 

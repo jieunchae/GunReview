@@ -10,4 +10,7 @@ public interface UserService {
 	public int insertUser(User user);
 	public int updateUser(User user);
 	public int deleteUser(String id);
+	public int selectReviewsById(String review_userid);
+	public int selectSumReviewsById(String review_userid);
+	public int selectCreditById(String review_userid);
 }
