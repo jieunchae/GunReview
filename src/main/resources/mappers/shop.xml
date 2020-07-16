@@ -86,5 +86,12 @@
 		set openHour = #{openHour}
 		where id = #{id} and openHour is null
 	</update>
+	
+	<!-- 임시 -->
+	<update id="test">
+		update Shop
+		set openHour = #{openHour}
+		where id = #{id}
+	</update>
 </mapper>
 

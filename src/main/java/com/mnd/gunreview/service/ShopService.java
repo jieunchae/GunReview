@@ -13,4 +13,5 @@ public interface ShopService {
 	public List<Shop> selectShopByLoc(double lat, double lng);
 	public int updateShopRate(String id);
 	public int updateOpenHour(String id, String openHour);
+	public int test(String openHour, String id);
 }

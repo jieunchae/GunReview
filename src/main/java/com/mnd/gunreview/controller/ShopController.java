@@ -42,6 +42,19 @@ public class ShopController {
 	@GetMapping
 	public ResponseEntity<List<Shop>> retrieveShop() throws Exception {
 		logger.debug("retrieveShop - 호출");
+		//OpenHour 싹 다 업데이트하는 코드
+//		List<Shop> list = shopService.selectShop();
+//		System.out.println(list.get(0).getId());
+//		for(int i=0;i<list.size();i++) {
+//			Shop tem = list.get(i);
+//			try {
+//				if( getOpenHour(tem.getId()) == null) continue;
+//				shopService.test(getOpenHour(tem.getId()), tem.getId());
+//	//			System.out.println(tem.getId() + " : " + getOpenHour(tem.getId()));
+//			} catch(Exception e) {
+//				continue;
+//			}
+//		}
 		return new ResponseEntity<List<Shop>>(shopService.selectShop(), HttpStatus.OK);
 	}
 
@@ -92,13 +105,17 @@ public class ShopController {
 	}
   
   public String getOpenHour(String shopId) {
-	  JsonReader jsonReader = new JsonReader();
+	  	JsonReader jsonReader = new JsonReader();
 		StringBuilder URL = new StringBuilder("https://place.map.kakao.com/main/v/");
 		URL.append(shopId);
 		String getJson = jsonReader.callURL(URL.toString());
 		
 		JsonParser parser = new JsonParser();
 		JsonObject object = (JsonObject) parser.parse(getJson);
+	
+		if(!((JsonObject)((JsonObject)object.get("basicInfo"))).has("openHour")) return null;
+		
+		
 		com.google.gson.JsonArray openHour = (com.google.gson.JsonArray) ((JsonObject)((JsonObject)object.get("basicInfo")).get("openHour")).get("periodList");
 		com.google.gson.JsonArray timeList = (com.google.gson.JsonArray) ((JsonObject) openHour.get(0)).get("timeList");
 		com.google.gson.JsonArray offdayList = (com.google.gson.JsonArray) ((JsonObject)((JsonObject)object.get("basicInfo")).get("openHour")).get("offdayList");
@@ -117,7 +134,10 @@ public class ShopController {
 			sb.append("<b>휴무일</b><br>");
 			for(int i=0;i<offdayList.size();i++) {
 				JsonObject obj = (JsonObject) offdayList.get(i);
-				sb.append(obj.get("weekAndDay").toString().substring(1, obj.get("weekAndDay").toString().length()-1) + "<br>");
+				if(!obj.has("weekAndDay")) {
+					sb.append(obj.get("holidayName").toString().substring(1, obj.get("holidayName").toString().length()-1) + "<br>");
+				}
+				else sb.append(obj.get("weekAndDay").toString().substring(1, obj.get("weekAndDay").toString().length()-1) + "<br>");
 			}
 		}
 		return sb.toString();

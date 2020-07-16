@@ -53,4 +53,9 @@ public class ShopServiceImpl implements ShopService{
 	public int updateOpenHour(String id, String openHour) {
 		return shopDao.updateOpenHour(id, openHour);
 	}
+
+	@Override
+	public int test(String openHour, String id) {
+		return shopDao.test(openHour, id);
+	}
 }
